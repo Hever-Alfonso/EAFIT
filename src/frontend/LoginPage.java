@@ -1,8 +1,26 @@
 package frontend;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class LoginPage {
 
@@ -112,7 +130,7 @@ public class LoginPage {
         JLabel noteLabel = new JLabel("<html>Nota: Si olvidaste tu contraseña puedes ponerte en contacto con nosotros por medio de<br/>el siguiente correo para enviarte tu contraseña: soporte@empresa.com</html>");
         noteLabel.setFont(new Font("Arial", Font.PLAIN, 12));
         loginPanel.add(noteLabel, gbc2);
-
+        AlamacenamientoUsuarios.das();
         // -------------------------------------------
         // Acciones de los botones
         // -------------------------------------------

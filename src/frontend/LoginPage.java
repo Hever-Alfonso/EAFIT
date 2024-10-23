@@ -142,8 +142,8 @@ public class LoginPage {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = registerEmail.getText();
-                String password = new String(registerPassword.getPassword());
+                String email = registerEmail.getText().trim();
+                String password = new String(registerPassword.getPassword()).trim();
                 String rol = null;
                 boolean isDocente = docenteRadio.isSelected();
                 boolean isEstudiante = estudianteRadio.isSelected();
@@ -154,16 +154,34 @@ public class LoginPage {
                 } else {
                     // Aquí iría la lógica para registrar al usuario
                     rol = isDocente ? "Docente" : "Estudiante";
+
+                    //Mensaje de rol registrado
                     JOptionPane.showMessageDialog(frame, "Registro exitoso como " + rol + ".", "Registro", JOptionPane.INFORMATION_MESSAGE);
+
+                    //Guardar informacion de registro
+                    AlmacenamientoUsuarios guardarRegistro = new AlmacenamientoUsuarios();
+                    try{
+                        guardarRegistro.guardarUsuarioInfo(email, password, rol);
+                    } catch(IOException error){
+                        System.out.println("Error: " + error);
+                    }
+
+                    // Enlazar ventana del cuestionario inicial
+                    JFrame cuestionarioFrame = new JFrame("Cuestionario Inicial");
+                    cuestionarioFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
+                    cuestionarioFrame.setSize(1080, 900);
+        
+                    CuestionarioInicial cuestionarioPanel = new CuestionarioInicial();
+                    cuestionarioFrame.add(cuestionarioPanel);
+        
+                    // Mostrar la ventana del cuestionario
+                    cuestionarioFrame.setVisible(true);
+
+                    //cerrar la ventana anterior
+                    frame.dispose();
                 }
 
-                //Guardar informacion de registro
-                AlmacenamientoUsuarios guardarRegistro = new AlmacenamientoUsuarios();
-                try{
-                    guardarRegistro.guardarUsuarioInfo(email, password, rol);
-                } catch(IOException error){
-                    System.out.println("Error: " + error);
-                }
+                
             }
         });
 

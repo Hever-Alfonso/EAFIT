@@ -1,0 +1,8 @@
+ ,,null
+ juancortesg12@hotmail.com,juandycortes12,Estudiante
+ juancortesg13@hotmail.com,juandycortes12,Estudiante
+ juancortesg15@hotmail.com,juandycortes12,Docente
+ juancortesg18@hotmail.com,juandyces12,Estudiante
+ juancortesg18@hotmail.com,,null
+ juancortesg18@hotmail.com,t,Estudiante
+ juancortesg18@hotmail.com,dasdasds,Estudiante

@@ -11,6 +11,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -21,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import almacenamiento.AlmacenamientoUsuarios;
 
 public class LoginPage {
 
@@ -130,7 +134,6 @@ public class LoginPage {
         JLabel noteLabel = new JLabel("<html>Nota: Si olvidaste tu contraseña puedes ponerte en contacto con nosotros por medio de<br/>el siguiente correo para enviarte tu contraseña: soporte@empresa.com</html>");
         noteLabel.setFont(new Font("Arial", Font.PLAIN, 12));
         loginPanel.add(noteLabel, gbc2);
-        AlamacenamientoUsuarios.das();
         // -------------------------------------------
         // Acciones de los botones
         // -------------------------------------------
@@ -141,6 +144,7 @@ public class LoginPage {
             public void actionPerformed(ActionEvent e) {
                 String email = registerEmail.getText();
                 String password = new String(registerPassword.getPassword());
+                String rol = null;
                 boolean isDocente = docenteRadio.isSelected();
                 boolean isEstudiante = estudianteRadio.isSelected();
 
@@ -149,8 +153,16 @@ public class LoginPage {
                     JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos y selecciona tu rol académico.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Aquí iría la lógica para registrar al usuario
-                    String rol = isDocente ? "Docente" : "Estudiante";
+                    rol = isDocente ? "Docente" : "Estudiante";
                     JOptionPane.showMessageDialog(frame, "Registro exitoso como " + rol + ".", "Registro", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+                //Guardar informacion de registro
+                AlmacenamientoUsuarios guardarRegistro = new AlmacenamientoUsuarios();
+                try{
+                    guardarRegistro.guardarUsuarioInfo(email, password, rol);
+                } catch(IOException error){
+                    System.out.println("Error: " + error);
                 }
             }
         });
@@ -161,6 +173,7 @@ public class LoginPage {
             public void actionPerformed(ActionEvent e) {
                 String email = loginEmail.getText();
                 String password = new String(loginPassword.getPassword());
+                
 
                 // Verificar que los campos no estén vacíos
                 if (email.isEmpty() || password.isEmpty()) {
@@ -169,6 +182,7 @@ public class LoginPage {
                     // Aquí iría la lógica para autenticar al usuario
                     JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso.", "Login", JOptionPane.INFORMATION_MESSAGE);
                 }
+
             }
         });
 

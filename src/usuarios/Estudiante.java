@@ -10,8 +10,8 @@ public class Estudiante extends Usuario {
     //ArrayList<CalendarioEstudio> eventos = new ArrayList<>();
 
     //constructor
-    public Estudiante(String nombre, String correoElectronico, String contraseña, String rol){
-        this.nombre = nombre;
+    public Estudiante(String correoElectronico, String contraseña, String rol){
+        //this.nombre = nombre;
         this.correoElectronico = correoElectronico;
         this.contraseña = contraseña;
         this.rol = rol;

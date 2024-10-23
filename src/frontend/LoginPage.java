@@ -1,5 +1,6 @@
 package frontend;
 
+import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,7 +13,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -23,8 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-
-import almacenamiento.AlmacenamientoUsuarios;
 
 public class LoginPage {
 
@@ -192,13 +190,32 @@ public class LoginPage {
                 String email = loginEmail.getText();
                 String password = new String(loginPassword.getPassword());
                 
+                AlmacenamientoUsuarios buscarInicioSesion = new AlmacenamientoUsuarios();
+                boolean encontrado = buscarInicioSesion.buscarUsuarioInfo(email, password);
 
                 // Verificar que los campos no estén vacíos
                 if (email.isEmpty() || password.isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "Por favor, ingresa tu correo electrónico y contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
+                } else if (encontrado){
                     // Aquí iría la lógica para autenticar al usuario
                     JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso.", "Login", JOptionPane.INFORMATION_MESSAGE);
+
+
+                    //Enlazar ventana de Modulos 
+                    JFrame frameModulo = new JFrame("Modulos");
+                    frameModulo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frameModulo.setSize(944, 569);
+
+                    Modulos vistaModulo = new Modulos();
+                    frameModulo.add(vistaModulo);
+
+                    // Mostrar la ventana del Modulo
+                    frameModulo.setVisible(true);
+
+                    //cerrar la ventana anterior
+                    frame.dispose();
+                } else if(!encontrado){
+                    JOptionPane.showMessageDialog(frame, "Correo Electronico o Contraseña invalidos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }

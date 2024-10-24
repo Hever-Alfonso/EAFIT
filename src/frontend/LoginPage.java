@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import almacenamiento.AlmacenamientoUsuarios;
@@ -162,7 +163,7 @@ public class LoginPage {
                     // Usar HTML para centrar el primer renglón
                     JOptionPane.showMessageDialog(frame, "<html><div style='text-align: center;'>"
                     + "Registro exitoso como " + rol + ".<br>" + ".<br><br>"
-                    + "A continuación realizarás un cuestionario diagnóstico inicial" + ".<br><br>" + ".<br><br>"
+                    + "A continuación realizarás un cuestionario diagnóstico inicial" + ".<br><br>"
                     + "</div></html>","Registro", JOptionPane.INFORMATION_MESSAGE);
 
                     //Guardar informacion de registro
@@ -177,9 +178,15 @@ public class LoginPage {
                     JFrame cuestionarioFrame = new JFrame("Cuestionario Inicial");
                     cuestionarioFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
                     cuestionarioFrame.setSize(1080, 900);
-        
+
+                    // Envolver el panel en un JScrollPane
                     CuestionarioInicial cuestionarioPanel = new CuestionarioInicial();
-                    cuestionarioFrame.add(cuestionarioPanel);
+
+                    JScrollPane scrollPane = new JScrollPane(cuestionarioPanel);
+                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        
+                    cuestionarioFrame.add(scrollPane);
         
                     // Mostrar la ventana del cuestionario
                     cuestionarioFrame.setVisible(true);

@@ -155,4 +155,6 @@ public class CuestionarioInicial extends JPanel {
         jcomp33.setBounds (40, 790, 100, 25);
         jcomp34.setBounds (40, 810, 100, 25);
     }
+
+    
 }

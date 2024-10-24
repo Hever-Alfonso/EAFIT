@@ -6,3 +6,6 @@ das,sdsasa,Estudiante
 ewrf,fddf,Docente
 ddddd,dddd,Estudiante
 sad,asd,Estudiante
+juancortesg15@hotmail.com,juandycortes12,Estudiante
+asd,sad,Docente
+dfdf,dfdf,Estudiante

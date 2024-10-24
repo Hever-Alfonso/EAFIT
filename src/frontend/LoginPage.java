@@ -159,7 +159,11 @@ public class LoginPage {
                     rol = isDocente ? "Docente" : "Estudiante";
                 
                     //Mensaje de rol registrado
-                    JOptionPane.showMessageDialog(frame, "Registro exitoso como " + rol + ".", "Registro", JOptionPane.INFORMATION_MESSAGE);
+                    // Usar HTML para centrar el primer renglón
+                    JOptionPane.showMessageDialog(frame, "<html><div style='text-align: center;'>"
+                    + "Registro exitoso como " + rol + ".<br>" + ".<br><br>"
+                    + "A continuación realizarás un cuestionario diagnóstico inicial" + ".<br><br>" + ".<br><br>"
+                    + "</div></html>","Registro", JOptionPane.INFORMATION_MESSAGE);
 
                     //Guardar informacion de registro
                     

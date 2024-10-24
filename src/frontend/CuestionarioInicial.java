@@ -5,6 +5,7 @@ import java.awt.Insets;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -30,6 +31,8 @@ public class CuestionarioInicial extends JPanel {
 
     // Componentes para Física
     private JLabel jcomp45,jcomp49;
+
+    
 
     public CuestionarioInicial() {
         // Inicializar componentes
@@ -90,7 +93,7 @@ public class CuestionarioInicial extends JPanel {
         jcomp31 = new JLabel("std::cout << a + b * 2 << std::endl;");
         jcomp32 = new JRadioButton("14");
         jcomp33 = new JRadioButton("11");
-        jcomp34 = new JRadioButton("10");
+        jcomp34 = new JRadioButton("12");
 
         // Componentes para Física
         jcomp40 = new JLabel("Física");
@@ -106,6 +109,59 @@ public class CuestionarioInicial extends JPanel {
         jcomp50 = new JRadioButton("E = mc^2");
         jcomp51 = new JRadioButton("E = hf - Φ");
         jcomp52 = new JRadioButton("E = (1/2)mv^2");
+
+        //AGRUPAR RESPUESTAS DE PREGUNTAS
+        //grupos para preguntas de matematicas
+        ButtonGroup mateRespuestas1 = new ButtonGroup();
+        mateRespuestas1.add(jcomp2);
+        mateRespuestas1.add(jcomp3);
+        mateRespuestas1.add(jcomp4);
+
+
+        ButtonGroup mateRespuestas2 = new ButtonGroup();
+        mateRespuestas2.add(jcomp7);
+        mateRespuestas2.add(jcomp8);
+        mateRespuestas2.add(jcomp9);
+
+        ButtonGroup mateRespuestas3 = new ButtonGroup();
+        mateRespuestas3.add(jcomp11);
+        mateRespuestas3.add(jcomp12);
+        mateRespuestas3.add(jcomp13);
+
+        //grupos para preguntas de programacion
+        ButtonGroup progRespuestas1 = new ButtonGroup();
+        progRespuestas1.add(jcomp18);
+        progRespuestas1.add(jcomp19);
+        progRespuestas1.add(jcomp20);
+
+
+        ButtonGroup progRespuestas2 = new ButtonGroup();
+        progRespuestas2.add(jcomp25);
+        progRespuestas2.add(jcomp26);
+        progRespuestas2.add(jcomp27);
+
+        ButtonGroup progRespuestas3 = new ButtonGroup();
+        progRespuestas3.add(jcomp32);
+        progRespuestas3.add(jcomp33);
+        progRespuestas3.add(jcomp34);
+
+        //grupos para preguntas de fisica
+        ButtonGroup fisicaRespuestas1 = new ButtonGroup();
+        fisicaRespuestas1.add(jcomp41);
+        fisicaRespuestas1.add(jcomp42);
+        fisicaRespuestas1.add(jcomp43);
+
+
+        ButtonGroup fisicaRespuestas2 = new ButtonGroup();
+        fisicaRespuestas2.add(jcomp46);
+        fisicaRespuestas2.add(jcomp47);
+        fisicaRespuestas2.add(jcomp48);
+
+        ButtonGroup fisicaRespuestas3 = new ButtonGroup();
+        fisicaRespuestas3.add(jcomp50);
+        fisicaRespuestas3.add(jcomp51);
+        fisicaRespuestas3.add(jcomp52);
+        
     }
 
     private JPanel createIntroPanel() {
@@ -126,18 +182,21 @@ public class CuestionarioInicial extends JPanel {
         mathPanel.setLayout(new BoxLayout(mathPanel, BoxLayout.Y_AXIS));
         mathPanel.add(jcomp1);
         mathPanel.add(Box.createVerticalStrut(20));
-        mathPanel.add(jcomp5);
-        mathPanel.add(jcomp2);
+        //Pregunta #1
+        mathPanel.add(jcomp5);//enunciado
+        mathPanel.add(jcomp2); //corecta
         mathPanel.add(jcomp3);
         mathPanel.add(jcomp4);
         mathPanel.add(Box.createVerticalStrut(20));
-        mathPanel.add(jcomp6);
-        mathPanel.add(jcomp7);
+        //Pregunta #2
+        mathPanel.add(jcomp6);//enunciado
+        mathPanel.add(jcomp7);//correccta
         mathPanel.add(jcomp8);
         mathPanel.add(jcomp9);
         mathPanel.add(Box.createVerticalStrut(20));
-        mathPanel.add(jcomp10);
-        mathPanel.add(jcomp11);
+        //Pregunta #3
+        mathPanel.add(jcomp10);//enunciado
+        mathPanel.add(jcomp11);//correcta
         mathPanel.add(jcomp12);
         mathPanel.add(jcomp13);
         mathPanel.setBorder(new EmptyBorder(new Insets(20, 40, 20, 20))); // Añadir espacio interior
@@ -149,28 +208,31 @@ public class CuestionarioInicial extends JPanel {
         programmingPanel.setLayout(new BoxLayout(programmingPanel, BoxLayout.Y_AXIS));
         programmingPanel.add(jcomp14);
         programmingPanel.add(Box.createVerticalStrut(20));
-        programmingPanel.add(jcomp15);
-        programmingPanel.add(jcomp16);
-        programmingPanel.add(jcomp17);
+        //Pregunta #1
+        programmingPanel.add(jcomp15);//enunciado
+        programmingPanel.add(jcomp16);//enunciado
+        programmingPanel.add(jcomp17);//enunciado
         programmingPanel.add(jcomp18);
         programmingPanel.add(jcomp19);
-        programmingPanel.add(jcomp20);
+        programmingPanel.add(jcomp20);//correcta
         programmingPanel.add(Box.createVerticalStrut(20));
-        programmingPanel.add(jcomp21);
-        programmingPanel.add(jcomp22);
-        programmingPanel.add(jcomp23);
-        programmingPanel.add(jcomp24);
-        programmingPanel.add(jcomp25);
+        //Pregunta #2
+        programmingPanel.add(jcomp21);//enunciado
+        programmingPanel.add(jcomp22);//enunciado
+        programmingPanel.add(jcomp23);//enunciado
+        programmingPanel.add(jcomp24);//enunciado
+        programmingPanel.add(jcomp25);//correcta
         programmingPanel.add(jcomp26);
         programmingPanel.add(jcomp27);
         programmingPanel.add(Box.createVerticalStrut(20));
-        programmingPanel.add(jcomp28);
-        programmingPanel.add(jcomp29);
-        programmingPanel.add(jcomp30);
-        programmingPanel.add(jcomp31);
+        //Pregunta #3
+        programmingPanel.add(jcomp28);//enunciado
+        programmingPanel.add(jcomp29);//enunciado
+        programmingPanel.add(jcomp30);//enunciado
+        programmingPanel.add(jcomp31);//enunciado
         programmingPanel.add(jcomp32);
         programmingPanel.add(jcomp33);
-        programmingPanel.add(jcomp34);
+        programmingPanel.add(jcomp34);//correcta
         programmingPanel.setBorder(new EmptyBorder(new Insets(20, 40, 20, 20))); // Añadir espacio interior
         return programmingPanel;
     }
@@ -179,22 +241,37 @@ public class CuestionarioInicial extends JPanel {
         JPanel physicsPanel = new JPanel();
         physicsPanel.setLayout(new BoxLayout(physicsPanel, BoxLayout.Y_AXIS));
         physicsPanel.add(jcomp40);
+
+        
+
+        //Pregunta #1
         physicsPanel.add(Box.createVerticalStrut(20));
-        physicsPanel.add(jcomp44);
-        physicsPanel.add(jcomp41);
+        physicsPanel.add(jcomp44);//enunciado
+        physicsPanel.add(jcomp41);//correcta
         physicsPanel.add(jcomp42);
         physicsPanel.add(jcomp43);
         physicsPanel.add(Box.createVerticalStrut(20));
-        physicsPanel.add(jcomp45);
-        physicsPanel.add(jcomp46);
+
+        //Pregunta #2
+        physicsPanel.add(jcomp45);//enunciado
+        physicsPanel.add(jcomp46);//correcta
         physicsPanel.add(jcomp47);
         physicsPanel.add(jcomp48);
         physicsPanel.add(Box.createVerticalStrut(20));
-        physicsPanel.add(jcomp49);
+
+        //Pregunta #3
+        physicsPanel.add(jcomp49);//enunciado
         physicsPanel.add(jcomp50);
-        physicsPanel.add(jcomp51);
+        physicsPanel.add(jcomp51);//correcta
         physicsPanel.add(jcomp52);
         physicsPanel.setBorder(new EmptyBorder(new Insets(20, 40, 20, 20))); // Añadir espacio interior
+
         return physicsPanel;
     }
+
+    /*static boolean cuestionarioCompleto(){
+        if(mateRespuestas 1 == null){
+
+        }
+    } */
 }

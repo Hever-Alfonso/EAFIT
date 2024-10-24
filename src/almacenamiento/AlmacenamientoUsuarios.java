@@ -31,6 +31,7 @@ public class AlmacenamientoUsuarios {
         }
     }
 
+    
     public boolean buscarUsuarioInfo(String email, String contraseña){
         try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))){
 
@@ -42,6 +43,29 @@ public class AlmacenamientoUsuarios {
                 String[] bloques = renglon.split(",");
 
                 if(email.equals(bloques[0]) && contraseña.equals(bloques[1])){
+                    return true;
+                } 
+            }
+                return false;
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+
+            return false;
+        }
+    }
+
+    //Overload para verficar solo el mail
+    public boolean buscarUsuarioInfo(String email){
+        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))){
+
+            
+            String renglon = "";
+
+            while ((renglon= lector.readLine()) != null) { 
+
+                String[] bloques = renglon.split(",");
+
+                if(email.equals(bloques[0])){
                     return true;
                 } 
             }

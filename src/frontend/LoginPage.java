@@ -1,6 +1,5 @@
 package frontend;
 
-import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +12,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import almacenamiento.AlmacenamientoUsuarios;
 
 public class LoginPage {
 
@@ -146,20 +148,23 @@ public class LoginPage {
                 boolean isDocente = docenteRadio.isSelected();
                 boolean isEstudiante = estudianteRadio.isSelected();
 
+                AlmacenamientoUsuarios registro = new AlmacenamientoUsuarios();
+                boolean existeEmail =  registro.buscarUsuarioInfo(email);
+
                 // Verificar que los campos no estén vacíos y que se seleccione un rol
                 if (email.isEmpty() || password.isEmpty() || (!isDocente && !isEstudiante)) {
                     JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos y selecciona tu rol académico.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
+                } else if (!existeEmail){
                     // Aquí iría la lógica para registrar al usuario
                     rol = isDocente ? "Docente" : "Estudiante";
-
+                
                     //Mensaje de rol registrado
                     JOptionPane.showMessageDialog(frame, "Registro exitoso como " + rol + ".", "Registro", JOptionPane.INFORMATION_MESSAGE);
 
                     //Guardar informacion de registro
-                    AlmacenamientoUsuarios guardarRegistro = new AlmacenamientoUsuarios();
+                    
                     try{
-                        guardarRegistro.guardarUsuarioInfo(email, password, rol);
+                        registro.guardarUsuarioInfo(email, password, rol);
                     } catch(IOException error){
                         System.out.println("Error: " + error);
                     }
@@ -177,6 +182,8 @@ public class LoginPage {
 
                     //cerrar la ventana anterior
                     frame.dispose();
+                } else if (existeEmail){
+                    JOptionPane.showMessageDialog(frame, "Este correo ya esta registrado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
                 

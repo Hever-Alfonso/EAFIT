@@ -1,11 +1,7 @@
 juancortesg12@hotmail.com,juancortes,Estudiante
-juancortesg13@hotmail.com,dddd,Estudiante
-juancortes@hotmail.com,eeee,Estudiante
-juancortesgalvis12@hotmail.com,www,Estudiante
-das,sdsasa,Estudiante
-ewrf,fddf,Docente
-ddddd,dddd,Estudiante
-sad,asd,Estudiante
-juancortesg15@hotmail.com,juandycortes12,Estudiante
-asd,sad,Docente
-dfdf,dfdf,Estudiante
+ssssssss,ssssssss,Estudiante
+sssssss,ssssssss,Estudiante
+qqqqqqq,qqqqqq,Estudiante
+ssssss,ssssssss,Estudiante
+sadddddd,aaaaaaaa,Estudiante
+rrrrrrr,aaaaaaaa,Docente

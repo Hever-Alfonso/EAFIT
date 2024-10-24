@@ -1,5 +1,6 @@
 package frontend;
 
+import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,7 +13,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -24,8 +24,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
-import almacenamiento.AlmacenamientoUsuarios;
 
 public class LoginPage {
 
@@ -177,15 +175,16 @@ public class LoginPage {
                     // Enlazar ventana del cuestionario inicial
                     JFrame cuestionarioFrame = new JFrame("Cuestionario Inicial");
                     cuestionarioFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
-                    cuestionarioFrame.setSize(1080, 900);
+                    cuestionarioFrame.setSize(1500, 1200);
 
                     // Envolver el panel en un JScrollPane
                     CuestionarioInicial cuestionarioPanel = new CuestionarioInicial();
-
+                    // Envolver el panel en un JScrollPane
                     JScrollPane scrollPane = new JScrollPane(cuestionarioPanel);
-                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-                    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        
+                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
+                    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // No muestra la barra horizontal
+
+                    // Añadir el JScrollPane a la ventana
                     cuestionarioFrame.add(scrollPane);
         
                     // Mostrar la ventana del cuestionario

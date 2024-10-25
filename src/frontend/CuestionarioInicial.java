@@ -118,7 +118,7 @@ public class CuestionarioInicial extends JPanel {
 
     private JFrame mainFrame;
 
-    public CuestionarioInicial() {
+    public CuestionarioInicial(JFrame mainFrame) {
         // Inicializar componentes
         this.mainFrame = mainFrame;
         initLabels();
@@ -370,7 +370,7 @@ public class CuestionarioInicial extends JPanel {
                 frameModulo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frameModulo.setSize(944, 569);
 
-                Modulos vistaModulo = new Modulos();
+                Modulos vistaModulo = new Modulos(frameModulo);
                 frameModulo.add(vistaModulo);
 
                 // Mostrar la ventana del Modulo

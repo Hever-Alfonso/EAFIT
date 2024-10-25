@@ -1,6 +1,5 @@
 package frontend;
 
-import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +12,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -24,6 +24,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import almacenamiento.AlmacenamientoUsuarios;
 
 public class LoginPage {
 
@@ -178,7 +180,7 @@ public class LoginPage {
                     cuestionarioFrame.setSize(1500, 1200);
 
                     // Envolver el panel en un JScrollPane
-                    CuestionarioInicial cuestionarioPanel = new CuestionarioInicial();
+                    CuestionarioInicial cuestionarioPanel = new CuestionarioInicial(cuestionarioFrame);
                     // Envolver el panel en un JScrollPane
                     JScrollPane scrollPane = new JScrollPane(cuestionarioPanel);
                     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
@@ -223,7 +225,7 @@ public class LoginPage {
                     frameModulo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     frameModulo.setSize(944, 569);
 
-                    Modulos vistaModulo = new Modulos();
+                    Modulos vistaModulo = new Modulos(frameModulo);
                     frameModulo.add(vistaModulo);
 
                     // Mostrar la ventana del Modulo

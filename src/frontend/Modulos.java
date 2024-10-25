@@ -1,9 +1,13 @@
 package frontend;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -31,8 +35,11 @@ public class Modulos extends JPanel {
     private JLabel jcomp20;
     private JLabel jcomp21;
     private JCheckBox jcomp22;
+    private JButton jcomp23;
+    private JFrame mainFrame;
 
-    public Modulos() {
+    public Modulos(JFrame mainFrame) {
+        this.mainFrame = mainFrame;
         //construct components
         jcomp1 = new JLabel ("Bienvenido (x)");
         jcomp2 = new JLabel ("Tus Modulos ->");
@@ -125,6 +132,24 @@ public class Modulos extends JPanel {
         jcomp20.setBounds (565, 380, 100, 25);
         jcomp21.setBounds (855, 382, 100, 25);
         jcomp22.setBounds (805, 15, 150, 20);
+
+        //Botton cerrar sesion
+        jcomp23 = new JButton("Cerrar Sesion");
+        jcomp23.setForeground(Color.BLACK); // Texto en negro
+        jcomp23.setBackground(Color.WHITE); // Fondo en blanco
+        jcomp23.setFocusPainted(false);
+        jcomp23.setBounds(100, 470, 200, 50);
+        add(jcomp23);
+
+        //logica cerrar sesion
+        jcomp23.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginPage.main(null); // Llamar el método main de LoginPage para mostrar la vista
+                mainFrame.dispose();
+            }
+        });
+
     }
 
 }

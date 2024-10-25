@@ -1,12 +1,18 @@
 package frontend;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
@@ -21,25 +27,104 @@ public class CuestionarioInicial extends JPanel {
     JRadioButton jcomp3;
 
     // Componentes para Programación
-    private JLabel jcomp14, jcomp15, jcomp16, jcomp17,jcomp21, jcomp22, jcomp23, jcomp24,jcomp28, jcomp29, jcomp30, jcomp31;
+    private JLabel jcomp14, jcomp15, jcomp16, jcomp17,jcomp21, jcomp22, jcomp23;
 
-    JRadioButton jcomp18,jcomp2, jcomp4, jcomp7, jcomp8, jcomp9, jcomp11,jcomp12,jcomp13,jcomp19,jcomp20,jcomp25,jcomp26,jcomp27,jcomp32,jcomp33,jcomp34,jcomp41,jcomp42,jcomp43,jcomp46,jcomp47,jcomp48,jcomp50,jcomp51,jcomp52;
+    private static JLabel jcomp24;
+
+    private JLabel jcomp28;
+
+    private JLabel jcomp29;
+
+    private JLabel jcomp30;
+
+    private JLabel jcomp31;
+
+    JRadioButton jcomp18;
+
+    static JRadioButton jcomp2;
+
+    JRadioButton jcomp4;
+
+    static JRadioButton jcomp7;
+
+    JRadioButton jcomp8;
+
+    JRadioButton jcomp9;
+
+    static JRadioButton jcomp11;
+
+    JRadioButton jcomp12;
+
+    JRadioButton jcomp13;
+
+    JRadioButton jcomp19;
+
+    static JRadioButton jcomp20;
+
+    static JRadioButton jcomp25;
+
+    JRadioButton jcomp26;
+
+    JRadioButton jcomp27;
+
+    JRadioButton jcomp32;
+
+    JRadioButton jcomp33;
+
+    static JRadioButton jcomp34;
+
+    static JRadioButton jcomp41;
+
+    JRadioButton jcomp42;
+
+    JRadioButton jcomp43;
+
+    static JRadioButton jcomp46;
+
+    JRadioButton jcomp47;
+
+    JRadioButton jcomp48;
+
+    JRadioButton jcomp50;
+
+    static JRadioButton jcomp51;
+
+    JRadioButton jcomp52;
 
     JLabel jcomp44;
 
     JLabel jcomp40;
 
+    JButton finishTest;
+
     // Componentes para Física
     private JLabel jcomp45,jcomp49;
-
     
+    //Grupo de la opsciones de respuestas
+    static ButtonGroup mateRespuestas1 = new ButtonGroup();
+    static ButtonGroup mateRespuestas2 = new ButtonGroup();
+    static ButtonGroup mateRespuestas3 = new ButtonGroup();
+
+    static ButtonGroup progRespuestas1 = new ButtonGroup();
+    static ButtonGroup progRespuestas2 = new ButtonGroup();
+    static ButtonGroup progRespuestas3 = new ButtonGroup();
+
+    static ButtonGroup fisicaRespuestas1 = new ButtonGroup();
+    static ButtonGroup fisicaRespuestas2 = new ButtonGroup();
+    static ButtonGroup fisicaRespuestas3 = new ButtonGroup();
+
+    //arreglo con todos los grupos para optimizar if
+    static ButtonGroup[] grupos = {mateRespuestas1,mateRespuestas2,mateRespuestas3,progRespuestas1,progRespuestas2,progRespuestas3,fisicaRespuestas1,fisicaRespuestas2,fisicaRespuestas3};
+
+    private JFrame mainFrame;
 
     public CuestionarioInicial() {
         // Inicializar componentes
+        this.mainFrame = mainFrame;
         initLabels();
         
         // Configuración del panel y desplazamiento
-        setPreferredSize(new Dimension(1500, 1700));
+        setPreferredSize(new Dimension(1500, 1600));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Añadir componentes al panel
@@ -109,55 +194,47 @@ public class CuestionarioInicial extends JPanel {
         jcomp50 = new JRadioButton("E = mc^2");
         jcomp51 = new JRadioButton("E = hf - Φ");
         jcomp52 = new JRadioButton("E = (1/2)mv^2");
+        
 
         //AGRUPAR RESPUESTAS DE PREGUNTAS
         //grupos para preguntas de matematicas
-        ButtonGroup mateRespuestas1 = new ButtonGroup();
+        
         mateRespuestas1.add(jcomp2);
         mateRespuestas1.add(jcomp3);
         mateRespuestas1.add(jcomp4);
 
-
-        ButtonGroup mateRespuestas2 = new ButtonGroup();
         mateRespuestas2.add(jcomp7);
         mateRespuestas2.add(jcomp8);
         mateRespuestas2.add(jcomp9);
 
-        ButtonGroup mateRespuestas3 = new ButtonGroup();
         mateRespuestas3.add(jcomp11);
         mateRespuestas3.add(jcomp12);
         mateRespuestas3.add(jcomp13);
 
         //grupos para preguntas de programacion
-        ButtonGroup progRespuestas1 = new ButtonGroup();
+        
         progRespuestas1.add(jcomp18);
         progRespuestas1.add(jcomp19);
         progRespuestas1.add(jcomp20);
 
-
-        ButtonGroup progRespuestas2 = new ButtonGroup();
         progRespuestas2.add(jcomp25);
         progRespuestas2.add(jcomp26);
         progRespuestas2.add(jcomp27);
 
-        ButtonGroup progRespuestas3 = new ButtonGroup();
         progRespuestas3.add(jcomp32);
         progRespuestas3.add(jcomp33);
         progRespuestas3.add(jcomp34);
 
         //grupos para preguntas de fisica
-        ButtonGroup fisicaRespuestas1 = new ButtonGroup();
+        
         fisicaRespuestas1.add(jcomp41);
         fisicaRespuestas1.add(jcomp42);
         fisicaRespuestas1.add(jcomp43);
 
-
-        ButtonGroup fisicaRespuestas2 = new ButtonGroup();
         fisicaRespuestas2.add(jcomp46);
         fisicaRespuestas2.add(jcomp47);
         fisicaRespuestas2.add(jcomp48);
 
-        ButtonGroup fisicaRespuestas3 = new ButtonGroup();
         fisicaRespuestas3.add(jcomp50);
         fisicaRespuestas3.add(jcomp51);
         fisicaRespuestas3.add(jcomp52);
@@ -264,14 +341,119 @@ public class CuestionarioInicial extends JPanel {
         physicsPanel.add(jcomp50);
         physicsPanel.add(jcomp51);//correcta
         physicsPanel.add(jcomp52);
+        physicsPanel.add(Box.createVerticalStrut(70));
+        
+        //Boton de terminar cuestionario
+        finishTest = new JButton("Terminar cuestionario");
+        finishTest.setForeground(Color.BLACK); // Texto en negro
+        finishTest.setBackground(Color.WHITE); // Fondo en blanco
+        finishTest.setFocusPainted(false);
+        finishTest.setPreferredSize(new Dimension(150, 90));
+        finishTest.setBounds(1400, 1650, 100, 50);
+        physicsPanel.add(finishTest);
+
+        //Logica de boton de terminar cuestionario
+        finishTest.addActionListener((ActionListener) new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if (cuestionarioCompleto()){
+                    JOptionPane.showMessageDialog(
+                    physicsPanel, 
+                    "Matematicas: [" + resultMatematicas() + "/3]\n" +
+                    "Programacion: [" + resultProgramacion() + "/3]\n" +
+                    "Fisica: [" + resultFisica() + "/3]\n", 
+                "Cuestionario Terminado - Tu puntaje:", 
+                    JOptionPane.INFORMATION_MESSAGE);
+
+                //Enlazar ventana de Modulos 
+                JFrame frameModulo = new JFrame("Modulos");
+                frameModulo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frameModulo.setSize(944, 569);
+
+                Modulos vistaModulo = new Modulos();
+                frameModulo.add(vistaModulo);
+
+                // Mostrar la ventana del Modulo
+                frameModulo.setVisible(true);
+
+                //cerrar la ventana anterior
+                mainFrame.dispose();
+            
+                } else{
+                    JOptionPane.showMessageDialog(physicsPanel, "Responde todas las preguntas", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+    });
+
+
         physicsPanel.setBorder(new EmptyBorder(new Insets(20, 40, 20, 20))); // Añadir espacio interior
 
         return physicsPanel;
     }
 
-    /*static boolean cuestionarioCompleto(){
-        if(mateRespuestas 1 == null){
-
+    static boolean cuestionarioCompleto(){
+        for(ButtonGroup x: grupos){
+            if(x.getSelection() == null){
+                return false;
+            }
         }
-    } */
+
+        return true;
+    }
+
+    //Contar respuestas correctas en cada campo
+    static int resultMatematicas(){
+        int correctas = 0;
+
+        if(jcomp2.isSelected()){
+            correctas++;
+        }
+
+        if(jcomp7.isSelected()){
+            correctas++;
+        }
+
+        if(jcomp11.isSelected()){
+            correctas++;
+        }
+
+        return correctas;
+    }
+
+    static int resultProgramacion(){
+        int correctas = 0;
+
+        if(jcomp20.isSelected()){
+            correctas++;
+        }
+
+        if(jcomp25.isSelected()){
+            correctas++;
+        }
+
+        if(jcomp34.isSelected()){
+            correctas++;
+        }
+
+        return correctas;
+    }
+
+    static int resultFisica(){
+        int correctas = 0;
+
+        if(jcomp41.isSelected()){
+            correctas++;
+        }
+
+        if(jcomp46.isSelected()){
+            correctas++;
+        }
+
+        if(jcomp51.isSelected()){
+            correctas++;
+        }
+
+        return correctas;
+    }
+
 }

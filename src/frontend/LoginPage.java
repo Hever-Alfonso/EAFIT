@@ -152,6 +152,7 @@ public class LoginPage {
                 AlmacenamientoUsuarios registro = new AlmacenamientoUsuarios();
                 boolean existeEmail =  registro.buscarUsuarioInfo(email);
                 boolean verificarCorreo = AlmacenamientoUsuarios.verficarCorreo(email);
+                boolean esEstudiante = AlmacenamientoUsuarios.checkEstudiante(email);
 
                 // Verificar que los campos no estén vacíos y que se seleccione un rol
                 if (email.isEmpty() || password.isEmpty() || (!isDocente && !isEstudiante)) {
@@ -159,21 +160,21 @@ public class LoginPage {
                 } else if (!existeEmail && verificarCorreo){
                     // Aquí iría la lógica para registrar al usuario
                     rol = isDocente ? "Docente" : "Estudiante";
-                
-                    //Mensaje de rol registrado
-                    // Usar HTML para centrar el primer renglón
-                    JOptionPane.showMessageDialog(frame, "<html><div style='text-align: center;'>"
-                    + "Registro exitoso como " + rol + ".<br>" + ".<br><br>"
-                    + "A continuación realizarás un cuestionario diagnóstico inicial" + ".<br><br>"
-                    + "</div></html>","Registro", JOptionPane.INFORMATION_MESSAGE);
 
                     //Guardar informacion de registro
-                    
                     try{
                         registro.guardarUsuarioInfo(email, password, rol);
                     } catch(IOException error){
                         System.out.println("Error: " + error);
                     }
+                    
+                    if(rol.equals("Estudiante")){
+                        //Mensaje de rol registrado
+                    // Usar HTML para centrar el primer renglón
+                    JOptionPane.showMessageDialog(frame, "<html><div style='text-align: center;'>"
+                    + "Registro exitoso como " + rol + ".<br>" + ".<br><br>"
+                    + "A continuación realizarás un cuestionario diagnóstico inicial" + ".<br><br>"
+                    + "</div></html>","Registro", JOptionPane.INFORMATION_MESSAGE);
 
                     // Enlazar ventana del cuestionario inicial
                     JFrame cuestionarioFrame = new JFrame("Cuestionario Inicial");
@@ -194,6 +195,12 @@ public class LoginPage {
 
                     //cerrar la ventana anterior
                     frame.dispose();
+                    } else if (rol.equals("Docente")) {
+                        JOptionPane.showMessageDialog(frame, "aun no", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    
+            
                 } else if (existeEmail){
                     JOptionPane.showMessageDialog(frame, "Este correo ya esta registrado", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if(!verificarCorreo){
@@ -213,7 +220,7 @@ public class LoginPage {
                 
                 AlmacenamientoUsuarios buscarInicioSesion = new AlmacenamientoUsuarios();
                 boolean encontrado = buscarInicioSesion.buscarUsuarioInfo(email, password);
-                boolean esEstudiante = buscarInicioSesion.checkEstudiante(email, password);
+                boolean esEstudiante = AlmacenamientoUsuarios.checkEstudiante(email);
 
                 // Verificar que los campos no estén vacíos
                 if (email.isEmpty() || password.isEmpty()) {
@@ -221,8 +228,7 @@ public class LoginPage {
                 } else if (encontrado && esEstudiante){
                     // Aquí iría la lógica para autenticar al usuario
                     JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso.", "Login", JOptionPane.INFORMATION_MESSAGE);
-
-                    //Estudiante e2 = new Estudiante(email, password);
+                    
                     //Enlazar ventana de Modulos 
                     JFrame frameModulo = new JFrame("Modulos");
                     frameModulo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

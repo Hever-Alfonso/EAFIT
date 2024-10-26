@@ -107,7 +107,7 @@ public class AlmacenamientoUsuarios {
         }
     }
 
-    public boolean checkEstudiante(String email, String contraseña){
+    public static boolean checkEstudiante(String email){
         try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))){
 
             email = email.toLowerCase().trim();
@@ -118,13 +118,7 @@ public class AlmacenamientoUsuarios {
 
                 String[] bloques = renglon.split(",");
 
-                if(email.equals(bloques[0]) && contraseña.equals(bloques[1]) && bloques[2].trim().equals("Estudiante")){
-                    
-                    // Mensajes de depuración para las comparaciones
-                    System.out.println("Email correcto: " + email);
-                    System.out.println("Contraseña correcta: " + contraseña);
-                    System.out.println("Rol correcto: " + bloques[2]);
-
+                if(email.equals(bloques[0]) && bloques[2].trim().equals("Estudiante")){
                     return true;
                 } 
                 

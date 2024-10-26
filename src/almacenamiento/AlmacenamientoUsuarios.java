@@ -18,12 +18,29 @@ public class AlmacenamientoUsuarios {
 
         email = email.toLowerCase().trim();
 
-        if(email.contains("@")){
-            if(email.contains(".com") || email.contains(".co")){
-                if(email.contains("eafit") || email.contains("gmail") || email.contains("outlook") || email.contains("icloud") || email.contains("hotmail")) {
-                    return true;
+        
+
+        
+
+        if(email.contains("@") && email.contains("\\.")){
+            String[] sepArroba = email.split("@"); // dividir el correo en 2 (antes y despues de @)
+            String[] sepPunto = sepArroba[1].split("."); //dividir la parte despues de @ (antes del . y despues)
+
+
+            //verficar que haya algo antes y despues del arroba | verfucar que haya algo antes y despues del punto
+            if(sepPunto[1].isEmpty() && sepPunto[0].isEmpty() &&  sepArroba[0].isEmpty() && sepArroba[1].isEmpty()){
+                return false;
+            }
+
+
+            if(sepArroba.length == 2 && sepArroba.length == 2 ){
+                if(sepPunto[1].equals("com") || sepPunto[1].equals("co")){
+                    if(sepPunto[0].equals("eafit") || sepPunto[0].equals("gmail") || sepPunto[0].equals("outlook") || sepPunto[0].equals("icloud") || sepPunto[0].equals("hotmail")) {
+                        return true;
+                    }
                 }
             }
+
         }
         return false;
     }

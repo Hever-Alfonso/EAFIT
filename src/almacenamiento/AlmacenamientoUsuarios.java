@@ -22,13 +22,13 @@ public class AlmacenamientoUsuarios {
 
         
 
-        if(email.contains("@") && email.contains("\\.")){
+        if(email.contains("@") && email.contains(".")){
             String[] sepArroba = email.split("@"); // dividir el correo en 2 (antes y despues de @)
-            String[] sepPunto = sepArroba[1].split("."); //dividir la parte despues de @ (antes del . y despues)
+            String[] sepPunto = sepArroba[1].split("\\."); //dividir la parte despues de @ (antes del . y despues)
 
 
             //verficar que haya algo antes y despues del arroba | verfucar que haya algo antes y despues del punto
-            if(sepPunto[1].isEmpty() && sepPunto[0].isEmpty() &&  sepArroba[0].isEmpty() && sepArroba[1].isEmpty()){
+            if(sepPunto.length < 2 || sepArroba.length < 2 || sepPunto[1].isEmpty() || sepPunto[0].isEmpty() ||  sepArroba[0].isEmpty() || sepArroba[1].isEmpty()){
                 return false;
             }
 

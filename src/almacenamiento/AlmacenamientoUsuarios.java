@@ -14,16 +14,33 @@ public class AlmacenamientoUsuarios {
     PrintWriter escritor;
 
 
+    public static boolean verficarCorreo(String email){
+
+        email = email.toLowerCase().trim();
+
+        if(email.contains("@")){
+            if(email.contains(".com") || email.contains(".co")){
+                if(email.contains("eafit") || email.contains("gmail") || email.contains("outlook") || email.contains("icloud") || email.contains("hotmail")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     public void guardarUsuarioInfo(String email, String contraseña, String rol) throws IOException{
 
         try {
+
+            email = email.toLowerCase().trim();
 
             archivo = new FileWriter("usuarios.txt", true);
             escritor = new PrintWriter(archivo);
 
             escritor.println(email+","+contraseña+","+rol);
             Estudiante e1 = new Estudiante(email, contraseña, rol);
+
         } catch (IOException e){
             System.out.println("Error: " + e);
         } finally{

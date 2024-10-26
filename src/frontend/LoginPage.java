@@ -143,7 +143,7 @@ public class LoginPage {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = registerEmail.getText().trim();
+                String email = registerEmail.getText().toLowerCase().trim();
                 String password = new String(registerPassword.getPassword()).trim();
                 String rol = null;
                 boolean isDocente = docenteRadio.isSelected();
@@ -151,11 +151,12 @@ public class LoginPage {
 
                 AlmacenamientoUsuarios registro = new AlmacenamientoUsuarios();
                 boolean existeEmail =  registro.buscarUsuarioInfo(email);
+                boolean verificarCorreo = AlmacenamientoUsuarios.verficarCorreo(email);
 
                 // Verificar que los campos no estén vacíos y que se seleccione un rol
                 if (email.isEmpty() || password.isEmpty() || (!isDocente && !isEstudiante)) {
                     JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos y selecciona tu rol académico.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (!existeEmail){
+                } else if (!existeEmail && verificarCorreo){
                     // Aquí iría la lógica para registrar al usuario
                     rol = isDocente ? "Docente" : "Estudiante";
                 
@@ -181,7 +182,6 @@ public class LoginPage {
 
                     // Envolver el panel en un JScrollPane
                     CuestionarioInicial cuestionarioPanel = new CuestionarioInicial(cuestionarioFrame);
-                    // Envolver el panel en un JScrollPane
                     JScrollPane scrollPane = new JScrollPane(cuestionarioPanel);
                     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
                     scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // No muestra la barra horizontal
@@ -196,6 +196,8 @@ public class LoginPage {
                     frame.dispose();
                 } else if (existeEmail){
                     JOptionPane.showMessageDialog(frame, "Este correo ya esta registrado", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if(!verificarCorreo){
+                    JOptionPane.showMessageDialog(frame, "Ingresa un correo valido", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
                 
@@ -206,7 +208,7 @@ public class LoginPage {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String email = loginEmail.getText();
+                String email = loginEmail.getText().toLowerCase().trim();
                 String password = new String(loginPassword.getPassword());
                 
                 AlmacenamientoUsuarios buscarInicioSesion = new AlmacenamientoUsuarios();

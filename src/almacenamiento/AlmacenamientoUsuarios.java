@@ -18,10 +18,6 @@ public class AlmacenamientoUsuarios {
 
         email = email.toLowerCase().trim();
 
-        
-
-        
-
         if(email.contains("@") && email.contains(".")){
             String[] sepArroba = email.split("@"); // dividir el correo en 2 (antes y despues de @)
             String[] sepPunto = sepArroba[1].split("\\."); //dividir la parte despues de @ (antes del . y despues)
@@ -104,6 +100,36 @@ public class AlmacenamientoUsuarios {
                 } 
             }
                 return false;
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+
+            return false;
+        }
+    }
+
+    public boolean checkEstudiante(String email, String contraseña){
+        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))){
+
+            email = email.toLowerCase().trim();
+            
+            String renglon = "";
+
+            while ((renglon= lector.readLine()) != null) { 
+
+                String[] bloques = renglon.split(",");
+
+                if(email.equals(bloques[0]) && contraseña.equals(bloques[1]) && bloques[2].trim().equals("Estudiante")){
+                    
+                    // Mensajes de depuración para las comparaciones
+                    System.out.println("Email correcto: " + email);
+                    System.out.println("Contraseña correcta: " + contraseña);
+                    System.out.println("Rol correcto: " + bloques[2]);
+
+                    return true;
+                } 
+                
+            }
+            return false;
         } catch (IOException e) {
             System.out.println("Error: " + e);
 

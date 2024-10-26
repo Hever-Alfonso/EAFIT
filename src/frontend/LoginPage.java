@@ -213,15 +213,16 @@ public class LoginPage {
                 
                 AlmacenamientoUsuarios buscarInicioSesion = new AlmacenamientoUsuarios();
                 boolean encontrado = buscarInicioSesion.buscarUsuarioInfo(email, password);
+                boolean esEstudiante = buscarInicioSesion.checkEstudiante(email, password);
 
                 // Verificar que los campos no estén vacíos
                 if (email.isEmpty() || password.isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "Por favor, ingresa tu correo electrónico y contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (encontrado){
+                } else if (encontrado && esEstudiante){
                     // Aquí iría la lógica para autenticar al usuario
                     JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso.", "Login", JOptionPane.INFORMATION_MESSAGE);
 
-
+                    //Estudiante e2 = new Estudiante(email, password);
                     //Enlazar ventana de Modulos 
                     JFrame frameModulo = new JFrame("Modulos");
                     frameModulo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -237,8 +238,9 @@ public class LoginPage {
                     frame.dispose();
                 } else if(!encontrado){
                     JOptionPane.showMessageDialog(frame, "Correo Electronico o Contraseña invalidos", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if(!esEstudiante){
+                    JOptionPane.showMessageDialog(frame, "aun no", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
         });
 

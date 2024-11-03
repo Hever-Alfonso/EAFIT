@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
+import usuarios.Estudiante;
+
 public class CuestionarioInicial extends JPanel {
     // Textos de introducción
     private JLabel jcomp35, jcomp36, jcomp37, jcomp38, jcomp39;
@@ -118,7 +120,7 @@ public class CuestionarioInicial extends JPanel {
 
     private JFrame mainFrame;
 
-    public CuestionarioInicial(JFrame mainFrame) {
+    public CuestionarioInicial(JFrame mainFrame, Estudiante registro) {
         // Inicializar componentes
         this.mainFrame = mainFrame;
         initLabels();
@@ -131,7 +133,7 @@ public class CuestionarioInicial extends JPanel {
         add(createIntroPanel());
         add(createMathPanel());
         add(createProgrammingPanel());
-        add(createPhysicsPanel());
+        add(createPhysicsPanel(registro));
     }
 
     private void initLabels() {
@@ -314,7 +316,7 @@ public class CuestionarioInicial extends JPanel {
         return programmingPanel;
     }
 
-    private JPanel createPhysicsPanel() {
+    private JPanel createPhysicsPanel(Estudiante registro) {
         JPanel physicsPanel = new JPanel();
         physicsPanel.setLayout(new BoxLayout(physicsPanel, BoxLayout.Y_AXIS));
         physicsPanel.add(jcomp40);
@@ -370,7 +372,7 @@ public class CuestionarioInicial extends JPanel {
                 frameModulo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frameModulo.setSize(944, 569);
 
-                Modulos vistaModulo = new Modulos(frameModulo);
+                Modulos vistaModulo = new Modulos(frameModulo, registro);
                 frameModulo.add(vistaModulo);
 
                 // Mostrar la ventana del Modulo

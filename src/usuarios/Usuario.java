@@ -1,7 +1,8 @@
 package usuarios;
 
-import comunicacion.Notificacion;
 import java.util.ArrayList;
+
+import comunicacion.Notificacion;
 
 
 public class Usuario {
@@ -29,7 +30,7 @@ public class Usuario {
         return this.nombre;
     }
 
-    protected String getCorreo(){
+    public String getCorreo(){
         return this.correoElectronico;
     }
 

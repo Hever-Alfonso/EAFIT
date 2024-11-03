@@ -1,5 +1,6 @@
 package frontend;
 
+import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,7 +13,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -24,8 +24,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
-import almacenamiento.AlmacenamientoUsuarios;
+import usuarios.Estudiante;
 
 public class LoginPage {
 
@@ -176,13 +175,15 @@ public class LoginPage {
                     + "A continuación realizarás un cuestionario diagnóstico inicial" + ".<br><br>"
                     + "</div></html>","Registro", JOptionPane.INFORMATION_MESSAGE);
 
+                    Estudiante newEstudiante = new Estudiante(email, password, rol);
+
                     // Enlazar ventana del cuestionario inicial
                     JFrame cuestionarioFrame = new JFrame("Cuestionario Inicial");
                     cuestionarioFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
                     cuestionarioFrame.setSize(1500, 1200);
 
                     // Envolver el panel en un JScrollPane
-                    CuestionarioInicial cuestionarioPanel = new CuestionarioInicial(cuestionarioFrame);
+                    CuestionarioInicial cuestionarioPanel = new CuestionarioInicial(cuestionarioFrame, newEstudiante);
                     JScrollPane scrollPane = new JScrollPane(cuestionarioPanel);
                     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
                     scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // No muestra la barra horizontal
@@ -229,12 +230,15 @@ public class LoginPage {
                     // Aquí iría la lógica para autenticar al usuario
                     JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso.", "Login", JOptionPane.INFORMATION_MESSAGE);
                     
+
+                    Estudiante estudianteEnSesion = new Estudiante(email, password, "Estudiante");
+
                     //Enlazar ventana de Modulos 
                     JFrame frameModulo = new JFrame("Modulos");
                     frameModulo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     frameModulo.setSize(944, 569);
 
-                    Modulos vistaModulo = new Modulos(frameModulo);
+                    Modulos vistaModulo = new Modulos(frameModulo, estudianteEnSesion);
                     frameModulo.add(vistaModulo);
 
                     // Mostrar la ventana del Modulo
@@ -242,6 +246,8 @@ public class LoginPage {
 
                     //cerrar la ventana anterior
                     frame.dispose();
+
+                    
                 } else if(!encontrado){
                     JOptionPane.showMessageDialog(frame, "Correo Electronico o Contraseña invalidos", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if(!esEstudiante){
@@ -249,6 +255,7 @@ public class LoginPage {
                 }
             }
         });
+
 
         // Mostrar la ventana principal
         frame.setVisible(true);

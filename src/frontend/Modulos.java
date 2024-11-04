@@ -15,6 +15,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import almacenamiento.AlmacenamientoUsuarios;
 import recursos.MaterialEstudio;
 import usuarios.Estudiante;
 
@@ -46,11 +47,14 @@ public class Modulos extends JPanel {
 
     private ImageIcon pdf = new ImageIcon("pdf.png"); 
 
-    //String[] nombre = estudianteEnSesion.getEmail();
 
     public Modulos(JFrame mainFrame, Estudiante estudiante) {
         this.mainFrame = mainFrame;
 
+        //setear el progreso del estudiante
+        estudiante.setProgresoMate(AlmacenamientoUsuarios.getProgresoMate(estudiante));
+        estudiante.setProgresoProg(AlmacenamientoUsuarios.getProgresoProg(estudiante));
+        estudiante.setProgresoFisica(AlmacenamientoUsuarios.getProgresoFisica(estudiante));
 
         //obtener email antes del arroba
         String[] divemail = estudiante.getCorreo().split("@");
@@ -59,27 +63,27 @@ public class Modulos extends JPanel {
         //construct components
         jcomp1 = new JLabel ("Bienvenido " + nombreEstudiante);
         jcomp2 = new JLabel ("Tus Modulos ->");
-        jcomp3 = new JButton ("Programacion");
-        jcomp4 = new JButton ("Matematicas");
+        jcomp3 = new JButton ("Matematicas");
+        jcomp4 = new JButton ("Programacion");
         jcomp5 = new JButton ("Fisica");
         jcomp9 = new JLabel ("Tu progreso general");
         jcomp10 = new JProgressBar ();
         jcomp13 = new JProgressBar ();
-        jcomp16 = new JLabel ("Programacion");
-        jcomp17 = new JLabel ("Matematicas");
+        jcomp16 = new JLabel ("Matematicas");
+        jcomp17 = new JLabel ("Programacion");
         jcomp18 = new JLabel ("Fisica");
         jcomp19 = new JProgressBar ();
 
         //set components properties
-        jcomp10.setValue(0);
+        jcomp10.setValue(estudiante.getProgresoMate());
         jcomp10.setStringPainted(true); // Muestra el porcentaje
         jcomp10.setIndeterminate(false);
 
-        jcomp13.setValue(0);
+        jcomp13.setValue(estudiante.getProgresoProg());
         jcomp13.setStringPainted(true); // Muestra el porcentaje
         jcomp13.setIndeterminate(false);
 
-        jcomp19.setValue(0);
+        jcomp19.setValue(estudiante.getProgresoFisica());
         jcomp19.setStringPainted(true); // Muestra el porcentaje
         jcomp19.setIndeterminate(false);
         
@@ -133,12 +137,16 @@ public class Modulos extends JPanel {
         });
 
         //logica modulo matematicas
-        jcomp4.addActionListener(new ActionListener() {
+        jcomp3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                     JFrame mateModuloFrame = new JFrame("Matematicas");
                     mateModuloFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
                     mateModuloFrame.setSize(279, 398);
+
+
+                    AlmacenamientoUsuarios.actProgresoMate(estudiante);
+                    jcomp10.setValue(estudiante.getProgresoMate());
 
                     JScrollPane scrollPane = new JScrollPane(matematicas());
                     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
@@ -154,7 +162,7 @@ public class Modulos extends JPanel {
         });
 
         //logica modulo programacion
-        jcomp3.addActionListener(new ActionListener() {
+        jcomp4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                     JFrame mateModuloFrame = new JFrame("Programacion");

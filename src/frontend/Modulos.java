@@ -1,10 +1,15 @@
 package frontend;
 
+import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -14,8 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-
-import almacenamiento.AlmacenamientoUsuarios;
 import recursos.MaterialEstudio;
 import usuarios.Estudiante;
 
@@ -144,11 +147,7 @@ public class Modulos extends JPanel {
                     mateModuloFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
                     mateModuloFrame.setSize(279, 398);
 
-
-                    AlmacenamientoUsuarios.actProgresoMate(estudiante);
-                    jcomp10.setValue(estudiante.getProgresoMate());
-
-                    JScrollPane scrollPane = new JScrollPane(matematicas());
+                    JScrollPane scrollPane = new JScrollPane(matematicas(estudiante));
                     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
                     scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // No muestra la barra horizontal
 
@@ -212,9 +211,10 @@ public class Modulos extends JPanel {
     private JButton jcomp32;
     private JLabel jcomp33;
 
-    private JPanel matematicas() {
+    private JPanel matematicas(Estudiante estudiante) {
 
         JPanel modMate = new JPanel();
+        ArrayList<String> comprobarButton = new ArrayList<>();
 
         MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf");
 
@@ -223,6 +223,27 @@ public class Modulos extends JPanel {
         jcomp30.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
         jcomp30.setVerticalTextPosition(SwingConstants.CENTER); // Centra el texto verticalmente
         jcomp30.setText(mate1.getTema()); // Establece el texto del botón
+        
+        jcomp30.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                try {
+                    URI url = new URI(mate1.getEnlace());
+                    Desktop.getDesktop().browse(url);
+                    
+
+                    if(!comprobarButton.contains("Mate1")){
+                        AlmacenamientoUsuarios.actProgresoMate(estudiante);
+                        jcomp10.setValue(estudiante.getProgresoMate());
+                        
+                        comprobarButton.add("Mate1");
+                    }
+                } catch (IOException | URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+        });
 
         jcomp31 = new JLabel (mate1.getTitulo());
 

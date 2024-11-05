@@ -50,7 +50,7 @@ public class AlmacenamientoUsuarios {
 
             email = email.toLowerCase().trim();
 
-            archivo = new FileWriter("usuarios.txt", true);
+            archivo = new FileWriter("src\\almacenamiento\\data\\usuarios.txt", true);
             escritor = new PrintWriter(archivo);
 
             escritor.println(email+","+contraseña+","+rol+",0,0,0"); //los 0 al final son el progreso de estudio en las distintas areas
@@ -65,7 +65,7 @@ public class AlmacenamientoUsuarios {
 
     
     public boolean buscarUsuarioInfo(String email, String contraseña){
-        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))){
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))){
 
             
             String renglon = "";
@@ -88,7 +88,7 @@ public class AlmacenamientoUsuarios {
 
     //Overload para verficar solo el mail
     public boolean buscarUsuarioInfo(String email){
-        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))){
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))){
 
             
             String renglon = "";
@@ -110,7 +110,7 @@ public class AlmacenamientoUsuarios {
     }
 
     public static boolean checkEstudiante(String email){
-        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))){
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))){
 
             email = email.toLowerCase().trim();
             
@@ -140,7 +140,7 @@ public class AlmacenamientoUsuarios {
 
         String email = sesion.getCorreo();
 
-        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))) {
             String linea;
             while ((linea = lector.readLine()) != null) {
 
@@ -163,7 +163,7 @@ public class AlmacenamientoUsuarios {
             System.out.println("Error" + e);
         } 
 
-        try (PrintWriter escritor = new PrintWriter(new FileWriter("usuarios.txt"))) {
+        try (PrintWriter escritor = new PrintWriter(new FileWriter("src\\almacenamiento\\data\\usuarios.txt"))) {
             for (String linea : lineas) {
                 escritor.println(linea);
             }
@@ -173,7 +173,7 @@ public class AlmacenamientoUsuarios {
     }
 
     public static int getProgresoMate(Estudiante sesion){
-        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))){
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))){
 
             String email = sesion.getCorreo();
             String renglon = "";
@@ -201,7 +201,7 @@ public class AlmacenamientoUsuarios {
 
         String email = sesion.getCorreo();
 
-        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))) {
             String linea;
             while ((linea = lector.readLine()) != null) {
 
@@ -224,7 +224,7 @@ public class AlmacenamientoUsuarios {
             System.out.println("Error" + e);
         } 
 
-        try (PrintWriter escritor = new PrintWriter(new FileWriter("usuarios.txt"))) {
+        try (PrintWriter escritor = new PrintWriter(new FileWriter("src\\almacenamiento\\data\\usuarios.txt"))) {
             for (String linea : lineas) {
                 escritor.println(linea);
             }
@@ -234,7 +234,7 @@ public class AlmacenamientoUsuarios {
     }
 
     public static int getProgresoProg(Estudiante sesion){
-        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))){
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))){
 
             String email = sesion.getCorreo();
             String renglon = "";
@@ -262,7 +262,7 @@ public class AlmacenamientoUsuarios {
 
         String email = sesion.getCorreo();
 
-        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))) {
             String linea;
             while ((linea = lector.readLine()) != null) {
 
@@ -285,7 +285,7 @@ public class AlmacenamientoUsuarios {
             System.out.println("Error" + e);
         } 
 
-        try (PrintWriter escritor = new PrintWriter(new FileWriter("usuarios.txt"))) {
+        try (PrintWriter escritor = new PrintWriter(new FileWriter("src\\almacenamiento\\data\\usuarios.txt"))) {
             for (String linea : lineas) {
                 escritor.println(linea);
             }
@@ -295,7 +295,7 @@ public class AlmacenamientoUsuarios {
     }
 
     public static int getProgresoFisica(Estudiante sesion){
-        try (BufferedReader lector = new BufferedReader(new FileReader("usuarios.txt"))){
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))){
 
             String email = sesion.getCorreo();
             String renglon = "";

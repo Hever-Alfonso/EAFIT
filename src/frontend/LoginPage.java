@@ -1,5 +1,6 @@
 package frontend;
 
+import almacenamiento.AlmacenamientoME;
 import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -163,6 +164,7 @@ public class LoginPage {
                     //Guardar informacion de registro
                     try{
                         registro.guardarUsuarioInfo(email, password, rol);
+                        AlmacenamientoME.registroEstudiante(email);
                     } catch(IOException error){
                         System.out.println("Error: " + error);
                     }

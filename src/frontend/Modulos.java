@@ -1,5 +1,6 @@
 package frontend;
 
+import almacenamiento.AlmacenamientoME;
 import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -9,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -214,7 +214,6 @@ public class Modulos extends JPanel {
     private JPanel matematicas(Estudiante estudiante) {
 
         JPanel modMate = new JPanel();
-        ArrayList<String> comprobarButton = new ArrayList<>();
 
         MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf");
 
@@ -230,13 +229,14 @@ public class Modulos extends JPanel {
                 try {
                     URI url = new URI(mate1.getEnlace());
                     Desktop.getDesktop().browse(url);
+
+                    boolean materialUsado = AlmacenamientoME.verificarMarca(estudiante, "Mate1");
                     
 
-                    if(!comprobarButton.contains("Mate1")){
+                    if(!materialUsado){
                         AlmacenamientoUsuarios.actProgresoMate(estudiante);
                         jcomp10.setValue(estudiante.getProgresoMate());
-                        
-                        comprobarButton.add("Mate1");
+                        AlmacenamientoME.recordarMaterial(estudiante, "Mate1");
                     }
                 } catch (IOException | URISyntaxException ex) {
                     ex.printStackTrace();

@@ -8,11 +8,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import usuarios.Estudiante;
+
 public class AlmacenamientoME {
     static FileWriter archivo;
     static PrintWriter escritor;
 
-    public static void registroEstudiante(String email){
+    public static void registroEstudiante(String email) throws IOException{
         try {
             archivo = new FileWriter("src\\almacenamiento\\data\\usedmaterial.txt");
             escritor = new PrintWriter(archivo);
@@ -20,6 +22,8 @@ public class AlmacenamientoME {
             escritor.println(email);
         } catch (IOException e) {
             System.out.println("Error " + e);
+        }finally{
+            archivo.close();
         }
     }
 

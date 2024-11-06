@@ -17,7 +17,7 @@ public class AlmacenamientoNotif {
 
     public static void registroEstudiante(String email) throws IOException{
         try {
-            archivo = new FileWriter("src\\almacenamiento\\data\\notificaciones.txt");
+            archivo = new FileWriter("src\\almacenamiento\\data\\Enotificaciones.txt");
             escritor = new PrintWriter(archivo);
 
             escritor.println(email);

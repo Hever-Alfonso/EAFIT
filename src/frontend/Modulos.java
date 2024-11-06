@@ -52,7 +52,8 @@ public class Modulos extends JPanel {
     private JFrame mainFrame;
     private JButton notificaciones;
 
-    private ImageIcon pdf = new ImageIcon("pdf.png"); 
+    private ImageIcon pdf = new ImageIcon("src\\frontend\\recursos\\pdf.png");
+    private ImageIcon campana = new ImageIcon("src\\frontend\\recursos\\campana.png");  
 
 
     public Modulos(JFrame mainFrame, Estudiante estudiante) {
@@ -81,7 +82,7 @@ public class Modulos extends JPanel {
         jcomp18 = new JLabel ("Fisica");
         jcomp19 = new JProgressBar ();
 
-        notificaciones = new JButton("N");
+        notificaciones = new JButton("N", campana);
 
         //set components properties
         jcomp10.setValue(estudiante.getProgresoMate());
@@ -129,7 +130,8 @@ public class Modulos extends JPanel {
         jcomp18.setBounds (580, 360, 100, 25);//fisica
         jcomp19.setBounds (580, 380, 270, 45); //barra fisica 
 
-        notificaciones.setBounds(705, 15, 20, 20);
+        notificaciones.setBounds(705, 15, 40, 20);
+        notificaciones.setBackground(new Color(0, 0, 0, 0));
 
         //Botton cerrar sesion
         jcomp23 = new JButton("Cerrar Sesion");
@@ -142,7 +144,7 @@ public class Modulos extends JPanel {
         notificaciones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Notificaciones().setVisible(true);
+                new Notificaciones(estudiante).setVisible(true);
 
             }
         });

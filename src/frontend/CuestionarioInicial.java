@@ -1,11 +1,12 @@
 package frontend;
 
+import almacenamiento.AlmacenamientoNotif;
+import comunicacion.Notificacion;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -16,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
-
 import usuarios.Estudiante;
 
 public class CuestionarioInicial extends JPanel {
@@ -119,6 +119,7 @@ public class CuestionarioInicial extends JPanel {
     static ButtonGroup[] grupos = {mateRespuestas1,mateRespuestas2,mateRespuestas3,progRespuestas1,progRespuestas2,progRespuestas3,fisicaRespuestas1,fisicaRespuestas2,fisicaRespuestas3};
 
     private JFrame mainFrame;
+    private Notificacion notificacion = new Notificacion("Cuestioninario", "Haz completado el cuestionario inicial");
 
     public CuestionarioInicial(JFrame mainFrame, Estudiante registro) {
         // Inicializar componentes
@@ -366,6 +367,8 @@ public class CuestionarioInicial extends JPanel {
                     "Fisica: [" + resultFisica() + "/3]\n", 
                 "Cuestionario Terminado - Tu puntaje:", 
                     JOptionPane.INFORMATION_MESSAGE);
+
+                    AlmacenamientoNotif.sendNotificacion(registro, notificacion);
 
                 //Enlazar ventana de Modulos 
                 JFrame frameModulo = new JFrame("Modulos");

@@ -1,6 +1,7 @@
 package frontend;
 
 import almacenamiento.AlmacenamientoME;
+import almacenamiento.AlmacenamientoNotif;
 import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -165,6 +166,7 @@ public class LoginPage {
                     try{
                         registro.guardarUsuarioInfo(email, password, rol);
                         AlmacenamientoME.registroEstudiante(email);
+                        AlmacenamientoNotif.registroEstudiante(email);
                     } catch(IOException error){
                         System.out.println("Error: " + error);
                     }

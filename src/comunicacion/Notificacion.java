@@ -6,7 +6,7 @@ public class Notificacion {
     private String titulo;
 
     //Constructor
-    public Notificacion(String mensaje, String titulo) {
+    public Notificacion(String titulo, String mensaje) {
         this.mensaje = mensaje;
         this.titulo = titulo;
     }

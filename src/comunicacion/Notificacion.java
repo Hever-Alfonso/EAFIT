@@ -1,37 +1,32 @@
 package comunicacion;
-import java.time.LocalDate;
+
 
 public class Notificacion {
     private String mensaje;
-    private LocalDate fechaEnvio;
+    private String titulo;
 
     //Constructor
-    public Notificacion(String mensaje, LocalDate fechaEnvio) {
+    public Notificacion(String mensaje, String titulo) {
         this.mensaje = mensaje;
-        this.fechaEnvio = fechaEnvio;
+        this.titulo = titulo;
     }
 
-    //Override del Constructor
-    public Notificacion(String mensaje) {
-        this.mensaje = mensaje;
-        this.fechaEnvio = LocalDate.now();
-    }
 
     //setters
-    private void setMensaje(String mensaje){
+    public void setMensaje(String mensaje){
         this.mensaje = mensaje;
     }
 
-    private void setFecha(LocalDate fechaEnvio){
-        this.fechaEnvio = fechaEnvio;
+    public void setTitulo(String titulo){
+        this.titulo = titulo;
     }
 
     //getters
-    private String getMensaje(){
+    public String getMensaje(){
         return this.mensaje;
     }
     
-    private LocalDate getFechaEnvio(){
-        return this.fechaEnvio;
+    public String getTitulo(){
+        return this.titulo;
     }
 }

@@ -1,7 +1,5 @@
 package frontend;
 
-import almacenamiento.AlmacenamientoME;
-import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -10,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,6 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+
+import almacenamiento.AlmacenamientoME;
+import almacenamiento.AlmacenamientoUsuarios;
+import frontend.modulos.Notificaciones;
 import recursos.MaterialEstudio;
 import usuarios.Estudiante;
 
@@ -47,6 +50,7 @@ public class Modulos extends JPanel {
     private JCheckBox jcomp22;
     private JButton jcomp23;
     private JFrame mainFrame;
+    private JButton notificaciones;
 
     private ImageIcon pdf = new ImageIcon("pdf.png"); 
 
@@ -76,6 +80,8 @@ public class Modulos extends JPanel {
         jcomp17 = new JLabel ("Programacion");
         jcomp18 = new JLabel ("Fisica");
         jcomp19 = new JProgressBar ();
+
+        notificaciones = new JButton("N");
 
         //set components properties
         jcomp10.setValue(estudiante.getProgresoMate());
@@ -108,6 +114,7 @@ public class Modulos extends JPanel {
         add (jcomp17);
         add (jcomp18);
         add (jcomp19);
+        add (notificaciones);
         //set component bounds (only needed by Absolute Positioning)
         jcomp1.setBounds (90, 90, 160, 25);
         jcomp2.setBounds (115, 150, 100, 25);
@@ -122,13 +129,23 @@ public class Modulos extends JPanel {
         jcomp18.setBounds (580, 360, 100, 25);//fisica
         jcomp19.setBounds (580, 380, 270, 45); //barra fisica 
 
+        notificaciones.setBounds(705, 15, 20, 20);
+
         //Botton cerrar sesion
         jcomp23 = new JButton("Cerrar Sesion");
         jcomp23.setForeground(Color.BLACK); // Texto en negro
         jcomp23.setBackground(Color.WHITE); // Fondo en blanco
         jcomp23.setFocusPainted(false);
-        jcomp23.setBounds(795, 15, 150, 20);
+        jcomp23.setBounds(755, 15, 150, 20);
         add(jcomp23);
+
+        notificaciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Notificaciones().setVisible(true);
+
+            }
+        });
 
         //logica cerrar sesion
         jcomp23.addActionListener(new ActionListener() {
@@ -215,7 +232,7 @@ public class Modulos extends JPanel {
 
         JPanel modMate = new JPanel();
 
-        MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf");
+        MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf", "Mate1");
 
         //Temas
         jcomp30 = new JButton (mate1.getTema(), pdf);
@@ -281,7 +298,7 @@ public class Modulos extends JPanel {
 
         JPanel modProg = new JPanel();
 
-        MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf");
+        MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf", "Mate1");
 
         //Temas
         progb1 = new JButton (mate1.getTema(), pdf);
@@ -325,7 +342,7 @@ public class Modulos extends JPanel {
 
         JPanel modFisic = new JPanel();
 
-        MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf");
+        MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf", "Mate1");
 
         //Temas
         fisicb1 = new JButton (mate1.getTema(), pdf);

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-
 import usuarios.Estudiante;
 
 public class AlmacenamientoME {
@@ -32,7 +31,7 @@ public class AlmacenamientoME {
 
         String email = sesion.getCorreo();
 
-        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usedmaterial.txt"))) {
             String linea;
             while ((linea = lector.readLine()) != null) {
 
@@ -48,7 +47,7 @@ public class AlmacenamientoME {
             System.out.println("Error" + e);
         } 
 
-        try (PrintWriter escritor = new PrintWriter(new FileWriter("src\\almacenamiento\\data\\usuarios.txt"))) {
+        try (PrintWriter escritor = new PrintWriter(new FileWriter("src\\almacenamiento\\data\\usedmaterial.txt"))) {
             for (String linea : lineas) {
                 escritor.println(linea);
             }
@@ -61,7 +60,7 @@ public class AlmacenamientoME {
 
         String email = sesion.getCorreo();
 
-        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))) {
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usedmaterial.txt"))) {
             String linea;
             while ((linea = lector.readLine()) != null) {
 

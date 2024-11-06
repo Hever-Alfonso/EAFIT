@@ -5,12 +5,14 @@ public class MaterialEstudio {
     private String tipo;
     private String tema;
     private String enlace;
+    private String marca;
 
-    public MaterialEstudio(String titulo, String tipo, String tema, String enlace){
+    public MaterialEstudio(String titulo, String tipo, String tema, String enlace, String marca){
         this.titulo = titulo;
         this.tipo = tipo;
         this.tema = tema;
         this.enlace = enlace;
+        this.marca = marca;
     }
 
 
@@ -44,5 +46,13 @@ public class MaterialEstudio {
 
     public void setEnlace(String enlace) {
         this.enlace = enlace;
+    }
+
+    public String getMarca(){
+        return marca;
+    }
+
+    public void setMarca(String marca){
+        this.marca = marca;
     }
 }

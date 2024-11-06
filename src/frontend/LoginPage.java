@@ -1,8 +1,5 @@
 package frontend;
 
-import almacenamiento.AlmacenamientoME;
-import almacenamiento.AlmacenamientoNotif;
-import almacenamiento.AlmacenamientoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +12,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -26,8 +24,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import usuarios.Estudiante;
 
+import almacenamiento.AlmacenamientoME;
+import almacenamiento.AlmacenamientoNotif;
+import almacenamiento.AlmacenamientoUsuarios;
+import usuarios.AsesorAcademico;
+import usuarios.Estudiante;
 public class LoginPage {
 
     public static void main(String[] args) {
@@ -149,72 +151,81 @@ public class LoginPage {
                 String rol = null;
                 boolean isDocente = docenteRadio.isSelected();
                 boolean isEstudiante = estudianteRadio.isSelected();
-
+        
                 AlmacenamientoUsuarios registro = new AlmacenamientoUsuarios();
-                boolean existeEmail =  registro.buscarUsuarioInfo(email);
+                boolean existeEmail = registro.buscarUsuarioInfo(email);
                 boolean verificarCorreo = AlmacenamientoUsuarios.verficarCorreo(email);
                 boolean esEstudiante = AlmacenamientoUsuarios.checkEstudiante(email);
-
+        
                 // Verificar que los campos no estén vacíos y que se seleccione un rol
                 if (email.isEmpty() || password.isEmpty() || (!isDocente && !isEstudiante)) {
                     JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos y selecciona tu rol académico.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (!existeEmail && verificarCorreo){
+                } else if (!existeEmail && verificarCorreo && esEstudiante) {
                     // Aquí iría la lógica para registrar al usuario
                     rol = isDocente ? "Docente" : "Estudiante";
-
-                    //Guardar informacion de registro
-                    try{
+        
+                    // Guardar información de registro
+                    try {
                         registro.guardarUsuarioInfo(email, password, rol);
                         AlmacenamientoME.registroEstudiante(email);
                         AlmacenamientoNotif.registroEstudiante(email);
-                    } catch(IOException error){
+                    } catch (IOException error) {
                         System.out.println("Error: " + error);
                     }
-                    
-                    if(rol.equals("Estudiante")){
-                        //Mensaje de rol registrado
-                    // Usar HTML para centrar el primer renglón
-                    JOptionPane.showMessageDialog(frame, "<html><div style='text-align: center;'>"
-                    + "Registro exitoso como " + rol + ".<br>" + ".<br><br>"
-                    + "A continuación realizarás un cuestionario diagnóstico inicial" + ".<br><br>"
-                    + "</div></html>","Registro", JOptionPane.INFORMATION_MESSAGE);
-
-                    Estudiante newEstudiante = new Estudiante(email, password, rol);
-
-                    // Enlazar ventana del cuestionario inicial
-                    JFrame cuestionarioFrame = new JFrame("Cuestionario Inicial");
-                    cuestionarioFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
-                    cuestionarioFrame.setSize(1500, 1200);
-
-                    // Envolver el panel en un JScrollPane
-                    CuestionarioInicial cuestionarioPanel = new CuestionarioInicial(cuestionarioFrame, newEstudiante);
-                    JScrollPane scrollPane = new JScrollPane(cuestionarioPanel);
-                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
-                    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // No muestra la barra horizontal
-
-                    // Añadir el JScrollPane a la ventana
-                    cuestionarioFrame.add(scrollPane);
         
-                    // Mostrar la ventana del cuestionario
-                    cuestionarioFrame.setVisible(true);
-
-                    //cerrar la ventana anterior
+                    if (rol.equals("Estudiante")) {
+                        // Mensaje de rol registrado
+                        JOptionPane.showMessageDialog(frame, "<html><div style='text-align: center;'>"
+                                + "Registro exitoso como " + rol + ".<br><br>"
+                                + "A continuación realizarás un cuestionario diagnóstico inicial" + ".<br><br>"
+                                + "</div></html>", "Registro", JOptionPane.INFORMATION_MESSAGE);
+        
+                        Estudiante newEstudiante = new Estudiante(email, password, rol);
+        
+                        // Enlazar ventana del cuestionario inicial
+                        JFrame cuestionarioFrame = new JFrame("Cuestionario Inicial");
+                        cuestionarioFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
+                        cuestionarioFrame.setSize(1500, 1200);
+        
+                        // Envolver el panel en un JScrollPane
+                        CuestionarioInicial cuestionarioPanel = new CuestionarioInicial(cuestionarioFrame, newEstudiante);
+                        JScrollPane scrollPane = new JScrollPane(cuestionarioPanel);
+                        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
+                        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // No muestra la barra horizontal
+        
+                        // Añadir el JScrollPane a la ventana
+                        cuestionarioFrame.add(scrollPane);
+        
+                        // Mostrar la ventana del cuestionario
+                        cuestionarioFrame.setVisible(true);
+        
+                        // Cerrar la ventana anterior
+                        frame.dispose();
+                    } 
+                } else if (!existeEmail && !esEstudiante && verificarCorreo) {
+                    AsesorAcademico sesion = new AsesorAcademico(email, password, "Docente");
+        
+                    // Enlazar ventana de profesores
+                    JFrame frameProfe = new JFrame("Profesor");
+                    frameProfe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frameProfe.setSize(944, 569);
+        
+                    ProfesoresVista vistaProfe = new ProfesoresVista(frameProfe, sesion);
+                    frameProfe.add(vistaProfe);
+        
+                    // Mostrar la ventana del Módulo
+                    frameProfe.setVisible(true);
+        
+                    // Cerrar la ventana anterior
                     frame.dispose();
-                    } else if (rol.equals("Docente")) {
-                        JOptionPane.showMessageDialog(frame, "aun no", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-
-                    
-            
-                } else if (existeEmail){
-                    JOptionPane.showMessageDialog(frame, "Este correo ya esta registrado", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if(!verificarCorreo){
-                    JOptionPane.showMessageDialog(frame, "Ingresa un correo valido", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (existeEmail) {
+                    JOptionPane.showMessageDialog(frame, "Este correo ya está registrado", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (!verificarCorreo) {
+                    JOptionPane.showMessageDialog(frame, "Ingresa un correo válido", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-                
             }
         });
+        
 
         // Acción del botón de inicio de sesión
         loginButton.addActionListener(new ActionListener() {
@@ -254,8 +265,25 @@ public class LoginPage {
                     
                 } else if(!encontrado){
                     JOptionPane.showMessageDialog(frame, "Correo Electronico o Contraseña invalidos", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if(!esEstudiante){
-                    JOptionPane.showMessageDialog(frame, "aun no", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if(!esEstudiante && encontrado){
+                    JOptionPane.showMessageDialog(frame, "Inicio de sesión exitoso.", "Login", JOptionPane.INFORMATION_MESSAGE);
+                    
+
+                    AsesorAcademico sesion = new AsesorAcademico(email, password, "Docente");
+
+                    //Enlazar ventana de profesores 
+                    JFrame frameProfe = new JFrame("Profesor");
+                    frameProfe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frameProfe.setSize(944, 569);
+
+                    ProfesoresVista vistaProfe = new ProfesoresVista(frameProfe, sesion);
+                    frameProfe.add(vistaProfe);
+
+                    // Mostrar la ventana del Modulo
+                    frameProfe.setVisible(true);
+
+                    //cerrar la ventana anterior
+                    frame.dispose();
                 }
             }
         });

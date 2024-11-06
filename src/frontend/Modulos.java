@@ -5,6 +5,8 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -141,13 +143,33 @@ public class Modulos extends JPanel {
         jcomp23.setBounds(755, 15, 150, 20);
         add(jcomp23);
 
+        Notificaciones notiPanel = new Notificaciones(estudiante);
+
         notificaciones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Notificaciones(estudiante).setVisible(true);
+                if (!notiPanel.isVisible()) {
+                    notiPanel.setVisible(true);
+                } else {
+                    // Alterna la visibilidad
+                    notiPanel.setVisible(!notiPanel.isVisible());
+                }
+            
+            }
 
+            
+        });
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (notiPanel != null && notiPanel.isVisible()) {
+                    notiPanel.dispose();
+                } 
+            
             }
         });
+
 
         //logica cerrar sesion
         jcomp23.addActionListener(new ActionListener() {

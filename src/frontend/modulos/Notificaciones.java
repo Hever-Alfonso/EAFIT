@@ -3,13 +3,12 @@ package frontend.modulos;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,24 +29,10 @@ public class Notificaciones extends JFrame {
         setSize(280, 400);
 
         setUndecorated(true);
-        getContentPane().setBackground(new Color(232, 184, 225));
+        getContentPane().setBackground(new Color(100, 100, 100));
         setLocation(755, 35);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-
-        // Configurar el fondo para detectar clics fuera del JFrame
-        fondoTransparente = new JWindow();
-        fondoTransparente.setBackground(new Color(0, 0, 0, 0)); // Transparente
-        fondoTransparente.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
-
-        // Agregar un listener para cerrar el frame al hacer clic fuera de él
-        fondoTransparente.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                fondoTransparente.dispose(); // Cerrar el fondo transparente
-            dispose(); // Cerrar el JFrame
-            }
-        });
 
         // Configurar el layout de la ventana
         setLayout(new BorderLayout());
@@ -73,19 +58,21 @@ public class Notificaciones extends JFrame {
         // Crear un panel contenedor para cada notificación
         JPanel panelNotificacion = new JPanel(new BorderLayout());
         panelNotificacion.setBackground(new Color(227, 227, 227));
+        panelNotificacion.add(Box.createVerticalStrut(20));
+        
         
         // Título de la notificación
         JLabel titulo = new JLabel(title);
         titulo.setHorizontalAlignment(SwingConstants.LEFT);
         titulo.setOpaque(true);
-        titulo.setBackground(new Color(227, 227, 227));
+        titulo.setBackground(new Color(237,237,237,237));
         panelNotificacion.add(titulo, BorderLayout.NORTH);
 
         // Mensaje de la notificación
         JLabel mensaje = new JLabel(message);
         mensaje.setHorizontalAlignment(SwingConstants.CENTER);
         mensaje.setOpaque(true);
-        mensaje.setBackground(new Color(237, 237, 237));
+        mensaje.setBackground(new Color(227,227,227,227));
         panelNotificacion.add(mensaje, BorderLayout.CENTER);
         
         titulos.add(titulo);

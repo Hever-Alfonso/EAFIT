@@ -1,15 +1,11 @@
 package frontend;
 
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,8 +17,8 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import almacenamiento.AlmacenamientoME;
 import almacenamiento.AlmacenamientoUsuarios;
+import frontend.modulos.Matematicas;
 import frontend.modulos.Notificaciones;
 import recursos.MaterialEstudio;
 import usuarios.Estudiante;
@@ -184,19 +180,25 @@ public class Modulos extends JPanel {
         jcomp3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    JFrame mateModuloFrame = new JFrame("Matematicas");
-                    mateModuloFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
-                    mateModuloFrame.setSize(279, 398);
-
-                    JScrollPane scrollPane = new JScrollPane(matematicas(estudiante));
-                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
-                    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // No muestra la barra horizontal
-
-                    // Añadir el JScrollPane a la ventana
-                    mateModuloFrame.add(scrollPane);
-        
-                    // Mostrar la ventana 
-                    mateModuloFrame.setVisible(true);
+                JFrame mateModuloFrame = new JFrame("Matematicas");
+                mateModuloFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                
+                // Crear el panel de matemáticas
+                Matematicas mate = new Matematicas(mateModuloFrame, estudiante);
+                
+                // Crear JScrollPane y configurar la barra de desplazamiento
+                JScrollPane scrollPane = new JScrollPane(mate);
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                scrollPane.setPreferredSize(new Dimension(944, 569)); // Opcional
+                
+                // Añadir el JScrollPane a la ventana
+                mateModuloFrame.add(scrollPane);
+                
+                // Ajustar el tamaño del JFrame automáticamente o configurar un tamaño específico
+                mateModuloFrame.pack(); // Ajusta al tamaño preferido
+                mateModuloFrame.setVisible(true);
+                
 
             }
         });
@@ -252,66 +254,6 @@ public class Modulos extends JPanel {
     private JButton jcomp32;
     private JLabel jcomp33;
 
-    private JPanel matematicas(Estudiante estudiante) {
-
-        JPanel modMate = new JPanel();
-
-        MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf", "Mate1");
-
-        //Temas
-        jcomp30 = new JButton (mate1.getTema(), pdf);
-        jcomp30.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
-        jcomp30.setVerticalTextPosition(SwingConstants.CENTER); // Centra el texto verticalmente
-        jcomp30.setText(mate1.getTema()); // Establece el texto del botón
-        
-        jcomp30.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                try {
-                    URI url = new URI(mate1.getEnlace());
-                    Desktop.getDesktop().browse(url);
-
-                    boolean materialUsado = AlmacenamientoME.verificarMarca(estudiante, "Mate1");
-                    
-
-                    if(!materialUsado){
-                        AlmacenamientoUsuarios.actProgresoMate(estudiante);
-                        jcomp10.setValue(estudiante.getProgresoMate());
-                        AlmacenamientoME.recordarMaterial(estudiante, "Mate1");
-                    }
-                } catch (IOException | URISyntaxException ex) {
-                    ex.printStackTrace();
-                }
-
-            }
-        });
-
-        jcomp31 = new JLabel (mate1.getTitulo());
-
-
-        jcomp32 = new JButton ("newButton");
-        jcomp33 = new JLabel ("newLabel");
-
-        //adjust size and set layout
-        modMate.setPreferredSize (new Dimension (279, 398));
-        modMate.setLayout (null);
-
-        //add components
-        modMate.add (jcomp30);
-        modMate.add (jcomp31);
-
-
-        modMate.add (jcomp32);
-        modMate.add (jcomp33);
-
-        //set component bounds (only needed by Absolute Positioning)
-        jcomp30.setBounds (0, 25, 280, 60);
-        jcomp31.setBounds (0, 0, 280, 25);
-        jcomp32.setBounds (0, 110, 280, 60);
-        jcomp33.setBounds (0, 85, 280, 25);
-
-        return modMate;
-    }
 
     private JButton progb1;
     private JLabel progt1;

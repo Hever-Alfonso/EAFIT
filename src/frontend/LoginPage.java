@@ -142,7 +142,7 @@ public class LoginPage {
         // Acciones de los botones
         // -------------------------------------------
 
-        // Acción del botón de registro
+        //boton de registro
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -155,26 +155,33 @@ public class LoginPage {
                 AlmacenamientoUsuarios registro = new AlmacenamientoUsuarios();
                 boolean existeEmail = registro.buscarUsuarioInfo(email);
                 boolean verificarCorreo = AlmacenamientoUsuarios.verficarCorreo(email);
-                boolean esEstudiante = AlmacenamientoUsuarios.checkEstudiante(email);
         
                 // Verificar que los campos no estén vacíos y que se seleccione un rol
                 if (email.isEmpty() || password.isEmpty() || (!isDocente && !isEstudiante)) {
                     JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos y selecciona tu rol académico.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (!existeEmail && verificarCorreo && esEstudiante) {
+                    return;
+                }
+        
+                if (existeEmail) {
+                    JOptionPane.showMessageDialog(frame, "Este correo ya está registrado", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+        
+                if (!verificarCorreo) {
+                    JOptionPane.showMessageDialog(frame, "Ingresa un correo válido", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else if (!existeEmail && verificarCorreo){
                     // Aquí iría la lógica para registrar al usuario
                     rol = isDocente ? "Docente" : "Estudiante";
         
-                    // Guardar información de registro
-                    try {
-                        registro.guardarUsuarioInfo(email, password, rol);
-                        AlmacenamientoME.registroEstudiante(email);
-                        AlmacenamientoNotif.registroEstudiante(email);
-                    } catch (IOException error) {
-                        System.out.println("Error: " + error);
-                    }
+                // Registrar al usuario como estudiante o docente según el rol seleccionado
+                try {
+                    registro.guardarUsuarioInfo(email, password, rol);
         
                     if (rol.equals("Estudiante")) {
-                        // Mensaje de rol registrado
+                        AlmacenamientoME.registroEstudiante(email);
+                        AlmacenamientoNotif.registroEstudiante(email);
+        
                         JOptionPane.showMessageDialog(frame, "<html><div style='text-align: center;'>"
                                 + "Registro exitoso como " + rol + ".<br><br>"
                                 + "A continuación realizarás un cuestionario diagnóstico inicial" + ".<br><br>"
@@ -182,49 +189,40 @@ public class LoginPage {
         
                         Estudiante newEstudiante = new Estudiante(email, password, rol);
         
-                        // Enlazar ventana del cuestionario inicial
                         JFrame cuestionarioFrame = new JFrame("Cuestionario Inicial");
-                        cuestionarioFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
+                        cuestionarioFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         cuestionarioFrame.setSize(1500, 1200);
         
-                        // Envolver el panel en un JScrollPane
                         CuestionarioInicial cuestionarioPanel = new CuestionarioInicial(cuestionarioFrame, newEstudiante);
                         JScrollPane scrollPane = new JScrollPane(cuestionarioPanel);
-                        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
-                        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // No muestra la barra horizontal
+                        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         
-                        // Añadir el JScrollPane a la ventana
                         cuestionarioFrame.add(scrollPane);
-        
-                        // Mostrar la ventana del cuestionario
                         cuestionarioFrame.setVisible(true);
         
-                        // Cerrar la ventana anterior
-                        frame.dispose();
-                    } 
-                } else if (!existeEmail && !esEstudiante && verificarCorreo) {
-                    AsesorAcademico sesion = new AsesorAcademico(email, password, "Docente");
+                    } else if (rol.equals("Docente")) {
+                        AsesorAcademico sesion = new AsesorAcademico(email, password, "Docente");
         
-                    // Enlazar ventana de profesores
-                    JFrame frameProfe = new JFrame("Profesor");
-                    frameProfe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frameProfe.setSize(944, 569);
+                        JFrame frameProfe = new JFrame("Profesor");
+                        frameProfe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frameProfe.setSize(944, 569);
         
-                    ProfesoresVista vistaProfe = new ProfesoresVista(frameProfe, sesion);
-                    frameProfe.add(vistaProfe);
+                        ProfesoresVista vistaProfe = new ProfesoresVista(frameProfe, sesion);
+                        frameProfe.add(vistaProfe);
         
-                    // Mostrar la ventana del Módulo
-                    frameProfe.setVisible(true);
-        
-                    // Cerrar la ventana anterior
+                        frameProfe.setVisible(true);
+                    }
+                    
                     frame.dispose();
-                } else if (existeEmail) {
-                    JOptionPane.showMessageDialog(frame, "Este correo ya está registrado", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (!verificarCorreo) {
-                    JOptionPane.showMessageDialog(frame, "Ingresa un correo válido", "Error", JOptionPane.ERROR_MESSAGE);
+                    
+                } catch (IOException error) {
+                    System.out.println("Error: " + error);
                 }
             }
+            }
         });
+        
         
 
         // Acción del botón de inicio de sesión

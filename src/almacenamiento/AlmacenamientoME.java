@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import recursos.MaterialEstudio;
 import usuarios.Estudiante;
 
 public class AlmacenamientoME {
@@ -80,5 +81,18 @@ public class AlmacenamientoME {
         }
         
         return false;
+    }
+
+    public static void agregarMaterial(MaterialEstudio material){
+        try (PrintWriter escritor = new PrintWriter(new FileWriter("src\\almacenamiento\\data\\materialestudio.txt"))){
+            String titulo = material.getTitulo();
+            String tema = material.getTema();
+            String marca = material.getMarca();
+            String tipo = material.getTipo();
+            String link = material.getEnlace();
+
+            escritor.println(titulo+","+tema+","+tipo+","+marca+","+link);
+        } catch (Exception e) {
+        }
     }
 }

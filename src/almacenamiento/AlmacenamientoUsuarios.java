@@ -135,8 +135,9 @@ public class AlmacenamientoUsuarios {
 
     //buscar y modficar el progreso de asignaturas
 
-    public static void actProgresoMate(Estudiante sesion){
+    public static void actProgresoMate(Estudiante sesion, int cantidadTipos){
         List<String> lineas = new ArrayList<>();
+        int porcentaje = 100/cantidadTipos;
 
         String email = sesion.getCorreo();
 
@@ -149,7 +150,7 @@ public class AlmacenamientoUsuarios {
                 if (campos[0].equals(email)) {
 
                     int progreso = Integer.parseInt(campos[3]);
-                    progreso+=20;
+                    progreso+=porcentaje;
 
                     campos[3] = String.valueOf(progreso); 
                     sesion.setProgresoMate(progreso);
@@ -196,11 +197,11 @@ public class AlmacenamientoUsuarios {
     }
 
 
-    public static void actProgresoProg(Estudiante sesion){
+    public static void actProgresoProg(Estudiante sesion, int cantidadTipos){
         List<String> lineas = new ArrayList<>();
 
         String email = sesion.getCorreo();
-
+        int porcentaje = 100/cantidadTipos;
         try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))) {
             String linea;
             while ((linea = lector.readLine()) != null) {
@@ -210,7 +211,7 @@ public class AlmacenamientoUsuarios {
                 if (campos[0].equals(email)) {
 
                     int progreso = Integer.parseInt(campos[4]);
-                    progreso+=20;
+                    progreso+=porcentaje;
 
                     campos[4] = String.valueOf(progreso); 
                     sesion.setProgresoProg(progreso);
@@ -257,11 +258,11 @@ public class AlmacenamientoUsuarios {
     }
 
 
-    public static void actProgresoFisica(Estudiante sesion){
+    public static void actProgresoFisica(Estudiante sesion, int cantidadTipos){
         List<String> lineas = new ArrayList<>();
 
         String email = sesion.getCorreo();
-
+        int porcentaje = 100/cantidadTipos;
         try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\usuarios.txt"))) {
             String linea;
             while ((linea = lector.readLine()) != null) {
@@ -271,7 +272,7 @@ public class AlmacenamientoUsuarios {
                 if (campos[0].equals(email)) {
 
                     int progreso = Integer.parseInt(campos[5]);
-                    progreso+=20;
+                    progreso+=porcentaje;
 
                     campos[5] = String.valueOf(progreso); 
                     

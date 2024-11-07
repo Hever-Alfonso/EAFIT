@@ -1,2 +1,1 @@
-Aprender Derivadas,Derivadas,mate,mate1,https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf
-Aprender Derivadas,Derivadas,mate,mate1,https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf
+Aprender Derivadas,Derivadas,Matematicas,Matematicas0,https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf

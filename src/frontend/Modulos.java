@@ -1,14 +1,12 @@
 package frontend;
 
-import almacenamiento.AlmacenamientoUsuarios;
-import frontend.modulos.Matematicas;
-import frontend.modulos.Notificaciones;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -17,6 +15,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+
+import almacenamiento.AlmacenamientoUsuarios;
+import frontend.modulos.Fisica;
+import frontend.modulos.Matematicas;
+import frontend.modulos.Notificaciones;
+import frontend.modulos.Programacion;
 import usuarios.Estudiante;
 
 public class Modulos extends JPanel {
@@ -29,16 +33,16 @@ public class Modulos extends JPanel {
     private JLabel jcomp7;
     private JLabel jcomp8;
     private JLabel jcomp9;
-    private JProgressBar jcomp10;
+    private JProgressBar barraMate;
     private JLabel jcomp11;
     private JLabel jcomp12;
-    private JProgressBar jcomp13;
+    private JProgressBar barraProg;
     private JLabel jcomp14;
     private JLabel jcomp15;
     private JLabel jcomp16;
     private JLabel jcomp17;
     private JLabel jcomp18;
-    private JProgressBar jcomp19;
+    private JProgressBar barraFisica;
     private JLabel jcomp20;
     private JLabel jcomp21;
     private JCheckBox jcomp22;
@@ -69,27 +73,27 @@ public class Modulos extends JPanel {
         jcomp4 = new JButton ("Programacion");
         jcomp5 = new JButton ("Fisica");
         jcomp9 = new JLabel ("Tu progreso general");
-        jcomp10 = new JProgressBar ();
-        jcomp13 = new JProgressBar ();
+        barraMate = new JProgressBar ();
+        barraProg = new JProgressBar ();
         jcomp16 = new JLabel ("Matematicas");
         jcomp17 = new JLabel ("Programacion");
         jcomp18 = new JLabel ("Fisica");
-        jcomp19 = new JProgressBar ();
+        barraFisica = new JProgressBar ();
 
         notificaciones = new JButton("N", campana);
 
         //set components properties
-        jcomp10.setValue(estudiante.getProgresoMate());
-        jcomp10.setStringPainted(true); // Muestra el porcentaje
-        jcomp10.setIndeterminate(false);
+        barraMate.setValue(estudiante.getProgresoMate());
+        barraMate.setStringPainted(true); // Muestra el porcentaje
+        barraMate.setIndeterminate(false);
 
-        jcomp13.setValue(estudiante.getProgresoProg());
-        jcomp13.setStringPainted(true); // Muestra el porcentaje
-        jcomp13.setIndeterminate(false);
+        barraProg.setValue(estudiante.getProgresoProg());
+        barraProg.setStringPainted(true); // Muestra el porcentaje
+        barraProg.setIndeterminate(false);
 
-        jcomp19.setValue(estudiante.getProgresoFisica());
-        jcomp19.setStringPainted(true); // Muestra el porcentaje
-        jcomp19.setIndeterminate(false);
+        barraFisica.setValue(estudiante.getProgresoFisica());
+        barraFisica.setStringPainted(true); // Muestra el porcentaje
+        barraFisica.setIndeterminate(false);
         
 
         //adjust size and set layout
@@ -103,12 +107,12 @@ public class Modulos extends JPanel {
         add (jcomp4);
         add (jcomp5);
         add (jcomp9);
-        add (jcomp10);
-        add (jcomp13);
+        add (barraMate);
+        add (barraProg);
         add (jcomp16);
         add (jcomp17);
         add (jcomp18);
-        add (jcomp19);
+        add (barraFisica);
         add (notificaciones);
         //set component bounds (only needed by Absolute Positioning)
         jcomp1.setBounds (90, 90, 160, 25);
@@ -117,12 +121,12 @@ public class Modulos extends JPanel {
         jcomp4.setBounds (80, 275, 165, 40);
         jcomp5.setBounds (80, 335, 165, 40);
         jcomp9.setBounds (655, 190, 130, 25);
-        jcomp10.setBounds (580, 260, 270, 45); //barra prog
-        jcomp13.setBounds (580, 320, 270, 45); //barra mate
+        barraMate.setBounds (580, 260, 270, 45); //barra prog
+        barraProg.setBounds (580, 320, 270, 45); //barra mate
         jcomp16.setBounds (580, 240, 100, 25); //prog
         jcomp17.setBounds (580, 300, 100, 25);  //matematicas
         jcomp18.setBounds (580, 360, 100, 25);//fisica
-        jcomp19.setBounds (580, 380, 270, 45); //barra fisica 
+        barraFisica.setBounds (580, 380, 270, 45); //barra fisica 
 
         notificaciones.setBounds(705, 15, 40, 20);
         notificaciones.setBackground(new Color(0, 0, 0, 0));
@@ -180,7 +184,7 @@ public class Modulos extends JPanel {
                 mateModuloFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 
                 // Crear el panel de matemáticas
-                Matematicas mate = new Matematicas(mateModuloFrame, estudiante);
+                Matematicas mate = new Matematicas(mateModuloFrame, estudiante, barraMate);
                 
                 // Crear JScrollPane y configurar la barra de desplazamiento
                 JScrollPane scrollPane = new JScrollPane(mate);
@@ -202,6 +206,23 @@ public class Modulos extends JPanel {
         jcomp4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFrame mateModuloFrame = new JFrame("Fisica");
+                mateModuloFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                
+                // Crear el panel de matemáticas
+                Programacion mate = new Programacion(mateModuloFrame, estudiante, barraProg);
+                
+                // Crear JScrollPane y configurar la barra de desplazamiento
+                JScrollPane scrollPane = new JScrollPane(mate);
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                
+                // Añadir el JScrollPane a la ventana
+                mateModuloFrame.add(scrollPane);
+                
+                // Ajustar el tamaño del JFrame automáticamente o configurar un tamaño específico
+                mateModuloFrame.pack(); // Ajusta al tamaño preferido
+                mateModuloFrame.setVisible(true);
             }
         });
 
@@ -210,7 +231,23 @@ public class Modulos extends JPanel {
         jcomp5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                JFrame mateModuloFrame = new JFrame("Fisica");
+                mateModuloFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                
+                // Crear el panel de matemáticas
+                Fisica mate = new Fisica(mateModuloFrame, estudiante, barraFisica);
+                
+                // Crear JScrollPane y configurar la barra de desplazamiento
+                JScrollPane scrollPane = new JScrollPane(mate);
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                
+                // Añadir el JScrollPane a la ventana
+                mateModuloFrame.add(scrollPane);
+                
+                // Ajustar el tamaño del JFrame automáticamente o configurar un tamaño específico
+                mateModuloFrame.pack(); // Ajusta al tamaño preferido
+                mateModuloFrame.setVisible(true);
             }
         });
 

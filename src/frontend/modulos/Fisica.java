@@ -19,14 +19,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
 import almacenamiento.AlmacenamientoME;
+import almacenamiento.AlmacenamientoUsuarios;
 import recursos.MaterialEstudio;
 import usuarios.Estudiante;
 
 public class Fisica extends JPanel {
-    public Matematicas(JFrame mainFrame, Estudiante sesion) {
+    JFrame mainFrame;
+    JPanel panelMateriales;
+    public Fisica(JFrame mainFrame, Estudiante sesion, JProgressBar barra) {
         this.mainFrame = mainFrame;
         setPreferredSize(new Dimension(300, 500));
         setLayout(new BorderLayout());
@@ -35,13 +39,13 @@ public class Fisica extends JPanel {
         panelMateriales.setLayout(new GridLayout(0, 1, 0, 10));
         add(panelMateriales, BorderLayout.CENTER);
 
-        cargarMaterial(sesion);
+        cargarMaterial(sesion, barra);
 
         panelMateriales.revalidate();
         panelMateriales.repaint();
     }
 
-    public void mostrarMaterial(MaterialEstudio material, Estudiante estudiante) {
+    public void mostrarMaterial(MaterialEstudio material, Estudiante estudiante, JProgressBar barra) {
         JPanel panelMaterial = new JPanel(new BorderLayout()); // Usar BorderLayout en lugar de FlowLayout
         panelMaterial.setPreferredSize(new Dimension(300, 100)); // Asegurarse de que tenga un tamaño visible
         ImageIcon pdfPNG = new ImageIcon("src\\frontend\\recursos\\pdf.png");
@@ -67,6 +71,13 @@ public class Fisica extends JPanel {
                     Desktop.getDesktop().browse(url);
 
                     boolean materialUsado = AlmacenamientoME.verificarMarca(estudiante, material.getMarca());
+                    
+                    if(!materialUsado){
+                        int cantidadTipos = AlmacenamientoME.contarTipos(material.getTipo());
+                        AlmacenamientoUsuarios.actProgresoFisica(estudiante, cantidadTipos);
+                        barra.setValue(estudiante.getProgresoFisica());
+                        AlmacenamientoME.recordarMaterial(estudiante, material.getMarca());
+                    }
                 } catch (IOException | URISyntaxException ex) {
                     ex.printStackTrace();
                 }
@@ -82,14 +93,14 @@ public class Fisica extends JPanel {
         panelMateriales.repaint();
     }
 
-    public void cargarMaterial(Estudiante estudiante) {
+    public void cargarMaterial(Estudiante estudiante, JProgressBar barra) {
         try (BufferedReader reader = new BufferedReader(new FileReader("src\\almacenamiento\\data\\materialestudio.txt"))) {
             String linea;
             while ((linea = reader.readLine()) != null) {
                 String[] campos = linea.split(",");
                 if (campos[2].equals("Fisica")) {
                     MaterialEstudio material = new MaterialEstudio(campos[0], campos[2], campos[1], campos[4], campos[3]);
-                    mostrarMaterial(material, estudiante);
+                    mostrarMaterial(material, estudiante, barra);
                     System.out.println("Cargando material: " + material.getTitulo() + ", Tema: " + material.getTema());
                 }
             }

@@ -95,4 +95,27 @@ public class AlmacenamientoME {
         } catch (Exception e) {
         }
     }
+
+    public static int contarTipos(String tipo){
+        int suma = 0;
+        try (BufferedReader lector = new BufferedReader(new FileReader("src\\almacenamiento\\data\\materialestudio.txt"))) {
+            String linea;
+            while ((linea = lector.readLine()) != null) {
+                System.out.println(linea);
+                String[] campos = linea.split(",");
+                System.out.print(campos[2]);
+                System.out.print(tipo);
+                
+                if (campos.length > 2 && campos[2].trim().equals(tipo.trim())) {
+                    suma++;
+                }
+                
+            }
+            return suma; 
+        } catch(IOException e){
+            System.out.println("Error" + e);
+            
+        }
+        return suma; 
+    }
 }

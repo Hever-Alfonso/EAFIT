@@ -31,7 +31,7 @@ public class Notificaciones extends JFrame {
         setUndecorated(true);
         getContentPane().setBackground(new Color(100, 100, 100));
         setLocation(755, 35);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
 
         // Configurar el layout de la ventana

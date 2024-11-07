@@ -25,11 +25,11 @@ import almacenamiento.AlmacenamientoME;
 import recursos.MaterialEstudio;
 import usuarios.Estudiante;
 
-public class Matematicas extends JPanel {
+public class Programacion extends JPanel{
     private JFrame mainFrame;
     private JPanel panelMateriales;
 
-    public Matematicas(JFrame mainFrame, Estudiante sesion) {
+    public Programacion(JFrame mainFrame, Estudiante sesion) {
         this.mainFrame = mainFrame;
         setPreferredSize(new Dimension(300, 500));
         setLayout(new BorderLayout());
@@ -90,7 +90,7 @@ public class Matematicas extends JPanel {
             String linea;
             while ((linea = reader.readLine()) != null) {
                 String[] campos = linea.split(",");
-                if (campos[2].equals("mate")) {
+                if (campos[2].equals("Programacion")) {
                     MaterialEstudio material = new MaterialEstudio(campos[0], campos[2], campos[1], campos[4], campos[3]);
                     mostrarMaterial(material, estudiante);
                     System.out.println("Cargando material: " + material.getTitulo() + ", Tema: " + material.getTema());
@@ -104,4 +104,6 @@ public class Matematicas extends JPanel {
     private ImageIcon ImageIcon() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+}
+
 }

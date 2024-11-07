@@ -1,12 +1,14 @@
 package frontend;
 
+import almacenamiento.AlmacenamientoUsuarios;
+import frontend.modulos.Matematicas;
+import frontend.modulos.Notificaciones;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -15,12 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-
-import almacenamiento.AlmacenamientoUsuarios;
-import frontend.modulos.Matematicas;
-import frontend.modulos.Notificaciones;
-import recursos.MaterialEstudio;
 import usuarios.Estudiante;
 
 public class Modulos extends JPanel {
@@ -159,7 +155,7 @@ public class Modulos extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (notiPanel != null && notiPanel.isVisible()) {
+                if (notiPanel.isVisible()) {
                     notiPanel.dispose();
                 } 
             
@@ -190,7 +186,6 @@ public class Modulos extends JPanel {
                 JScrollPane scrollPane = new JScrollPane(mate);
                 scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
                 scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                scrollPane.setPreferredSize(new Dimension(944, 569)); // Opcional
                 
                 // Añadir el JScrollPane a la ventana
                 mateModuloFrame.add(scrollPane);
@@ -207,20 +202,6 @@ public class Modulos extends JPanel {
         jcomp4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    JFrame mateModuloFrame = new JFrame("Programacion");
-                    mateModuloFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
-                    mateModuloFrame.setSize(279, 398);
-
-                    JScrollPane scrollPane = new JScrollPane(programacion());
-                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
-                    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // No muestra la barra horizontal
-
-                    // Añadir el JScrollPane a la ventana
-                    mateModuloFrame.add(scrollPane);
-        
-                    // Mostrar la ventana 
-                    mateModuloFrame.setVisible(true);
-
             }
         });
 
@@ -229,118 +210,10 @@ public class Modulos extends JPanel {
         jcomp5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    JFrame mateModuloFrame = new JFrame("Fisica");
-                    mateModuloFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // cierra esta ventana
-                    mateModuloFrame.setSize(279, 398);
-
-                    JScrollPane scrollPane = new JScrollPane(fisica());
-                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // Muestra la barra vertical si es necesaria
-                    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // No muestra la barra horizontal
-
-                    // Añadir el JScrollPane a la ventana
-                    mateModuloFrame.add(scrollPane);
-        
-                    // Mostrar la ventana 
-                    mateModuloFrame.setVisible(true);
 
             }
         });
 
 
     }
-
-    private JButton jcomp30;
-    private JLabel jcomp31;
-    private JButton jcomp32;
-    private JLabel jcomp33;
-
-
-    private JButton progb1;
-    private JLabel progt1;
-    private JButton progb2;
-    private JLabel progt2;
-
-    private JPanel programacion() {
-
-        JPanel modProg = new JPanel();
-
-        MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf", "Mate1");
-
-        //Temas
-        progb1 = new JButton (mate1.getTema(), pdf);
-        progb1.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
-        progb1.setVerticalTextPosition(SwingConstants.CENTER); // Centra el texto verticalmente
-        progb1.setText(mate1.getTema()); // Establece el texto del botón
-
-        progt1 = new JLabel (mate1.getTitulo());
-
-
-        progb2 = new JButton ("newButton");
-        progt2 = new JLabel ("newLabel");
-
-        //adjust size and set layout
-        modProg.setPreferredSize (new Dimension (279, 398));
-        modProg.setLayout (null);
-
-        //add components
-        modProg.add (progb1);
-        modProg.add (progt1);
-
-
-        modProg.add (progb2);
-        modProg.add (progb2);
-
-        //set component bounds (only needed by Absolute Positioning)
-        progb1.setBounds (0, 25, 280, 60);
-        progt1.setBounds (0, 0, 280, 25);
-        progb2.setBounds (0, 110, 280, 60);
-        progt2.setBounds (0, 85, 280, 25);
-
-        return modProg;
-    }
-
-    private JButton fisicb1;
-    private JLabel fisict1;
-    private JButton fisicb2;
-    private JLabel fisict2;
-
-    private JPanel fisica() {
-
-        JPanel modFisic = new JPanel();
-
-        MaterialEstudio mate1 = new MaterialEstudio("Aprender Derivadas", "Matematicas", "Derivadas", "https://cursos.aiu.edu/Calculo%20Diferencial%20e%20Integral/PDF/Tema%204.pdf", "Mate1");
-
-        //Temas
-        fisicb1 = new JButton (mate1.getTema(), pdf);
-        fisicb1.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
-        fisicb1.setVerticalTextPosition(SwingConstants.CENTER); // Centra el texto verticalmente
-        fisicb1.setText(mate1.getTema()); // Establece el texto del botón
-
-        fisict1 = new JLabel (mate1.getTitulo());
-
-
-        fisicb2 = new JButton ("newButton");
-        fisict2 = new JLabel ("newLabel");
-
-        //adjust size and set layout
-        modFisic.setPreferredSize (new Dimension (279, 398));
-        modFisic.setLayout (null);
-
-        //add components
-        modFisic.add (fisicb1);
-        modFisic.add (fisict1);
-
-
-        modFisic.add (fisicb2);
-        modFisic.add (fisicb2);
-
-        //set component bounds (only needed by Absolute Positioning)
-        progb1.setBounds (0, 25, 280, 60);
-        progt1.setBounds (0, 0, 280, 25);
-        progb2.setBounds (0, 110, 280, 60);
-        progt2.setBounds (0, 85, 280, 25);
-
-        return modFisic;
-    }
-
 }
